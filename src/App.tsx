@@ -22,6 +22,7 @@ import { QuickViewModal } from './components/QuickViewModal';
 import { SearchModal } from './components/SearchModal';
 import { SizeGuideModal } from './components/SizeGuideModal';
 import { PolicyModal } from './components/PolicyModal';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 
 export default function App() {
   // --- Cart State ---
@@ -249,6 +250,9 @@ export default function App() {
         type={policyType}
         onClose={() => setPolicyType(null)}
       />
+
+      {/* Floating WhatsApp Quick Chat Button */}
+      <FloatingWhatsApp />
 
     </div>
   );

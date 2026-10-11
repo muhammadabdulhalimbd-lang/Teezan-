@@ -103,6 +103,18 @@ export const Footer: React.FC<FooterProps> = ({
             </h4>
             <ul className="space-y-2 font-bengali text-sm text-[#CCCCCC]">
               <li>
+                <a
+                  href="https://wa.me/8801605529912?text=Hello%20TEEZAN"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#25D366] hover:underline flex items-center gap-1.5 font-english font-semibold"
+                  title="হোয়াটসঅ্যাপে সরাসরি কথা বলুন"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#25D366]"></span>
+                  <span>WhatsApp: 01605529912</span>
+                </a>
+              </li>
+              <li>
                 <button
                   onClick={() => onNavigate('faq')}
                   className="hover:text-[#FFFFFF] hover:underline cursor-pointer transition-colors"
@@ -148,11 +160,22 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Development Status & Transparency (Cols 10-12) */}
           <div className="lg:col-span-3 space-y-3 bg-[#181818] p-5 border border-[#2B2B2B]">
             <h4 className="font-english text-xs tracking-[0.2em] uppercase text-[#C6A36A] font-bold">
-              STAGE 1 PREVIEW
+              OFFICIAL CONTACT
             </h4>
-            <p className="font-bengali text-xs text-[#AAAAAA] leading-relaxed">
-              TEEZAN স্টোরের প্রথম পর্যায় (Stage 1) প্রদর্শিত হচ্ছে। পরবর্তী ধাপে অফিসিয়াল পেমেন্ট ও ডেলিভারি গেটওয়ে সমন্বিত হবে।
-            </p>
+            <div className="space-y-1.5 pt-1">
+              <span className="text-[11px] font-english text-[#888888] block">
+                WHATSAPP ORDER & INQUIRY:
+              </span>
+              <a
+                href="https://wa.me/8801605529912?text=Hello%20TEEZAN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-english font-bold text-[#FFFFFF] hover:text-[#25D366] transition-colors"
+              >
+                <span className="w-2 h-2 rounded-full bg-[#25D366]"></span>
+                <span>01605529912</span>
+              </a>
+            </div>
             <div className="pt-2 border-t border-[#262626]">
               <span className="text-[11px] font-english text-[#888888] block">
                 LEADERSHIP ATTRIBUTION:

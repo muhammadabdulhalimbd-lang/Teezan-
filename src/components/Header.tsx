@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ShoppingBag, Menu, X, ArrowRight } from 'lucide-react';
+import { Search, ShoppingBag, Menu, X, ArrowRight, MessageCircle } from 'lucide-react';
 
 interface HeaderProps {
   cartCount: number;
@@ -69,8 +69,20 @@ export const Header: React.FC<HeaderProps> = ({
             ))}
           </nav>
 
-          {/* Right: Actions (Search, Cart, Mobile Toggle) */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          {/* Right: Actions (Search, WhatsApp, Cart, Mobile Toggle) */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* WhatsApp Direct Header Link */}
+            <a
+              href="https://wa.me/8801605529912?text=Hello%20TEEZAN"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#D5CDBD] hover:border-[#25D366] bg-[#FFFFFF] text-[#111111] hover:text-[#25D366] transition-colors rounded-none"
+              title="WhatsApp Helpline 01605529912"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+              <span className="font-english text-xs font-bold">01605529912</span>
+            </a>
+
             {/* Search Button */}
             <button
               onClick={onOpenSearch}
@@ -124,6 +136,16 @@ export const Header: React.FC<HeaderProps> = ({
             ))}
 
             <div className="pt-4 flex flex-col gap-2">
+              <a
+                href="https://wa.me/8801605529912?text=Hello%20TEEZAN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#25D366] text-[#FFFFFF] font-bengali text-sm font-bold shadow-xs hover:bg-[#20ba59] transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>হোয়াটসঅ্যাপ: 01605529912</span>
+              </a>
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

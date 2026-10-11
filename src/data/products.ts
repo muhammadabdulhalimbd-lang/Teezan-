@@ -38,17 +38,17 @@ export const SAMPLE_PRODUCTS: Product[] = [
   },
   {
     id: 'tz-002',
-    nameBn: 'আইডেন্টিটি টাইপোগ্রাফি টি',
-    nameEn: 'Identity Typography Tee',
+    nameBn: 'জীবনযাত্রা প্রিমিয়াম কটন টি',
+    nameEn: 'Premium Cotton Jibon Jatra T-Shirt',
     category: 'typography',
     categoryBn: 'টাইপোগ্রাফি টি-শার্ট',
     price: 990,
     originalPrice: 1200,
     isNew: true,
     isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
-    descriptionBn: 'TEEZAN-এর মূল দর্শন "Wear Your Identity" ধারণ করে তৈরি ফ্রন্ট ও ব্যাক টাইপোগ্রাফিক আর্ট। হাই-ডেনসিটি সিল্ক স্ক্রিন প্রিন্ট যা সহজে বিবর্ণ হয় না।',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695534/Premium_Cotton_Jibon_Jatra_T-Shirt.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
+    descriptionBn: 'TEEZAN-এর সিগনেচার "জীবনযাত্রা" আর্টওয়ার্ক। ১০০% প্রিমিয়াম সুতি কম্বড কটন এবং দীর্ঘস্থায়ী আরামদায়ক প্রিমিয়াম ফ্যাব্রিক।',
     fabricBn: '১০০% হেভিওয়েট প্রিমিয়াম কটন',
     gsm: 230,
     colors: [
@@ -57,7 +57,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
     availableSizes: ['M', 'L', 'XL', 'XXL'],
     fitBn: 'বক্সি ওভারসাইজড কাট',
-    tagBn: 'ব্র্যান্ড আইকনিক',
+    tagBn: 'জীবনযাত্রা স্পেশাল',
     isSampleData: false
   },
   {
@@ -93,8 +93,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     originalPrice: 1050,
     isNew: true,
     isBestSeller: false,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000c350821194c4a4ce1a5916d0.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
     descriptionBn: 'সামনে পরিমিত মিনিমালিস্ট বুক-প্রিন্ট এবং পেছনে সূক্ষ্ম জ্যামিতিক নকশা। সাবলীল এবং মার্জিত ব্যক্তিত্বের জন্য দারুণ পছন্দ।',
     fabricBn: 'সফট-ওয়াশ বায়ো পলিশড কটন',
     gsm: 210,
@@ -120,8 +120,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     originalPrice: 1180,
     isNew: false,
     isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694662/file_0000000007948211ab656ac6f770e3eb.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
     descriptionBn: 'ক্লিন মনোক্রোম টোন এবং প্রশস্ত স্লিভ কাটিং। যেকোনো আধুনিক আর্ট ও স্ট্রিট ফ্যাশনপ্রেমীর জন্য আদর্শ পোশাক।',
     fabricBn: '১০০% হেভিওয়েট সুতি',
     gsm: 230,
@@ -143,8 +143,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     price: 1050,
     isNew: false,
     isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694676/file_000000008bbc82079f85c3a72b238db1.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
     descriptionBn: 'আমাদের মাতৃভাষার নান্দনিক ক্যালিগ্রাফি সম্বলিত বিশেষ সংস্করণ। আধুনিক স্ট্রিট আর্ট এবং বাংলা লিপির মেলবন্ধনে তৈরি বিশেষ টি-শার্ট।',
     fabricBn: '১০০% কম্বড প্রিমিয়াম কটন',
     gsm: 240,
@@ -167,8 +167,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     originalPrice: 1300,
     isNew: false,
     isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694644/file_000000001a44820786c35d551bd33087.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694676/file_000000008bbc82079f85c3a72b238db1.png',
     descriptionBn: 'হেভি জিএসএম ফ্যাব্রিকে তৈরি টেকসই ও প্রিমিয়াম ফিনিশিং। আধুনিক স্ট্রিট ফ্যাশনের রুচিশীল আউটলুক তৈরি করতে তৈরি।',
     fabricBn: '২৪০ জিএসএম আল্ট্রা-কম্প্যাক্ট কটন',
     gsm: 240,
@@ -190,8 +190,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     price: 920,
     isNew: false,
     isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694644/file_000000001a44820786c35d551bd33087.png',
     descriptionBn: 'বক্সি ফিটের আধুনিক স্কয়ার সিলুয়েট। স্বাধীন ও স্বাচ্ছন্দ্যময় চলাফেরার জন্য তরুণদের পছন্দের এক নম্বর ডিজাইন।',
     fabricBn: '১০০% শ্বাসপ্রশ্বাসযোগ্য কটন',
     gsm: 215,
@@ -212,7 +212,7 @@ export const CATEGORIES_DATA: Category[] = [
     titleBn: 'ওভারসাইজড টি-শার্ট',
     titleEn: 'Oversized T-Shirts',
     descriptionBn: 'ড্রপ-শোল্ডার রিল্যাক্সড ফিট ও আধুনিক স্ট্রিটওয়্যার স্টাইল',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000c350821194c4a4ce1a5916d0.png',
     badgeBn: 'জনপ্রিয়'
   },
   {
@@ -220,7 +220,7 @@ export const CATEGORIES_DATA: Category[] = [
     titleBn: 'টাইপোগ্রাফি টি-শার্ট',
     titleEn: 'Typography T-Shirts',
     descriptionBn: 'বাংলা ও ইংরেজি বোল্ড অক্ষরের আত্মপ্রকাশমূলক নান্দনিক নকশা',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695534/Premium_Cotton_Jibon_Jatra_T-Shirt.png',
     badgeBn: 'সিগনেচার'
   },
   {
@@ -228,7 +228,7 @@ export const CATEGORIES_DATA: Category[] = [
     titleBn: 'রেগুলার ফিট টি-শার্ট',
     titleEn: 'Regular Fit T-Shirts',
     descriptionBn: 'প্রতিদিনের আরাম ও পরিপাটি ব্যবহারের নিখুঁত ক্লাসিক কাট',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694676/file_000000008bbc82079f85c3a72b238db1.png',
     badgeBn: 'এসেনশিয়াল'
   },
   {
@@ -236,7 +236,7 @@ export const CATEGORIES_DATA: Category[] = [
     titleBn: 'নতুন কালেকশন',
     titleEn: 'New Arrivals',
     descriptionBn: 'TEEZAN-এর সদ্য অবমুক্ত ড্রপ এবং এক্সক্লুসিভ ডিজাইন',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694644/file_000000001a44820786c35d551bd33087.png',
     badgeBn: 'নতুন ড্রপ'
   }
 ];

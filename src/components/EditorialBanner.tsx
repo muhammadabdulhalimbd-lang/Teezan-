@@ -11,7 +11,7 @@ export const EditorialBanner: React.FC<EditorialBannerProps> = ({ onExplore }) =
       {/* Background Subtle Streetwear Imagery Overlay */}
       <div className="absolute inset-0 z-0 opacity-25 mix-blend-luminosity">
         <img
-          src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1600&auto=format&fit=crop"
+          src="https://res.cloudinary.com/daqyowoz/image/upload/v1791694662/file_0000000007948211ab656ac6f770e3eb.png"
           alt="TEEZAN Editorial Streetwear Mood"
           className="w-full h-full object-cover object-center"
           loading="lazy"

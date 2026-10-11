@@ -182,20 +182,35 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2.5">
+                {/* Direct WhatsApp Order Button */}
+                <a
+                  href={`https://wa.me/8801605529912?text=${encodeURIComponent(
+                    `হ্যালো TEEZAN! আমি নিচের পণ্যগুলো অর্ডার করতে চাই:\n\n` +
+                    items.map((item, i) => `${i + 1}. ${item.product.nameBn} (Size: ${item.selectedSize}, Color: ${item.selectedColor.nameBn}) - ${item.quantity}টি x ৳${item.product.price}`).join('\n') +
+                    `\n\nসর্বমোট মূল্য: ৳${totalAmount.toLocaleString('en-US')}\nঅনুগ্রহ করে ডেলিভারি কনফার্ম করুন।`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-sm font-bold flex items-center justify-center gap-2 transition-colors shadow-sm"
+                >
+                  <span>হোয়াটসঅ্যাপে অর্ডার করুন (01605529912)</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+
                 <button
                   onClick={() => {
-                    alert('ধন্যবাদ! TEEZAN বর্তমানে স্টেজ-১ ডেভেলপমেন্ট প্রিভিউতে রয়েছে। মূল চালুর পর সরাসরি বিকাশ, কার্ড ও সিওডি পেমেন্ট সক্রিয় হবে।');
+                    alert('ধন্যবাদ! TEEZAN বর্তমানে স্টেজ-১ প্রিভিউতে রয়েছে। সরাসরি নিশ্চিত অর্ডারের জন্য উপরের "হোয়াটসঅ্যাপে অর্ডার করুন" বাটনে ক্লিক করুন (01605529912)।');
                   }}
-                  className="w-full py-3.5 bg-[#111111] hover:bg-[#2B2B2B] text-[#FFFFFF] font-bengali text-sm font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  className="w-full py-3 bg-[#111111] hover:bg-[#2B2B2B] text-[#FFFFFF] font-bengali text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  <span>অর্ডার সম্পন্ন করতে এগিয়ে যান</span>
-                  <ArrowRight className="w-4 h-4 text-[#C6A36A]" />
+                  <span>ওয়েবসাইটে চেকআউট প্রসেস</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#C6A36A]" />
                 </button>
 
                 <button
                   onClick={onClearCart}
-                  className="w-full text-center text-xs text-[#888888] hover:text-[#D32F2F] font-bengali transition-colors py-1"
+                  className="w-full text-center text-xs text-[#888888] hover:text-[#D32F2F] font-bengali transition-colors py-1 cursor-pointer"
                 >
                   কার্ট খালি করুন
                 </button>

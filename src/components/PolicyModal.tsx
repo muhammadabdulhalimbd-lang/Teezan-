@@ -84,13 +84,32 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ type, onClose }) => {
               <span className="font-english font-medium">Abdul Halim</span>
             </div>
             <div className="flex items-center gap-2">
+              <span className="font-bold text-[#111111]">হোয়াটসঅ্যাপ হেল্পলাইন:</span>
+              <a
+                href="https://wa.me/8801605529912?text=Hello%20TEEZAN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-english font-bold text-[#25D366] hover:underline flex items-center gap-1.5"
+              >
+                <span>01605529912</span>
+                <span className="text-[10px] bg-[#25D366] text-[#FFFFFF] px-1.5 py-0.5 rounded-xs font-bengali">সরাসরি চ্যাট</span>
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
               <span className="font-bold text-[#111111]">অবস্থান:</span>
               <span>ঢাকা, বাংলাদেশ</span>
             </div>
           </div>
-          <p className="text-xs text-[#666666]">
-            অফিশিয়াল হেল্পলাইন নম্বর এবং কাস্টমার কেয়ার ইমেইল অ্যাকাউন্ট স্টোরের লাইভ উদ্বোধনের সময় সক্রিয় করা হবে।
-          </p>
+          <div className="pt-2">
+            <a
+              href="https://wa.me/8801605529912?text=Hello%20TEEZAN"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-sm font-bold flex items-center justify-center gap-2 transition-colors"
+            >
+              <span>হোয়াটসঅ্যাপে সরাসরি মেসেজ পাঠান (01605529912)</span>
+            </a>
+          </div>
         </div>
       ),
     },
