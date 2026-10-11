@@ -1,0 +1,144 @@
+import React from 'react';
+import { X, Shield, FileText, Mail, Phone } from 'lucide-react';
+
+interface PolicyModalProps {
+  type: 'privacy' | 'terms' | 'contact' | null;
+  onClose: () => void;
+}
+
+export const PolicyModal: React.FC<PolicyModalProps> = ({ type, onClose }) => {
+  if (!type) return null;
+
+  const contentMap = {
+    privacy: {
+      title: 'গোপনীয়তা নীতি (Privacy Policy)',
+      icon: Shield,
+      body: (
+        <div className="space-y-4 font-bengali text-sm text-[#444444] leading-relaxed">
+          <p>
+            TEEZAN ক্রেতাদের ব্যক্তিগত তথ্যের সুরক্ষাকে সর্বোচ্চ অগ্রাধিকার দেয়।
+          </p>
+          <div className="space-y-2">
+            <h4 className="font-bold text-[#111111]">১. তথ্যের ব্যবহার:</h4>
+            <p>
+              অর্ডার প্রক্রিয়াকরণ ও গ্রাহক সেবা প্রদানের স্বার্থে শুধুমাত্র প্রয়োজনীয় তথ্য (যেমন নাম, যোগাযোগের নম্বর ও ডেলিভারি ঠিকানা) সংগ্রহ করা হবে।
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-bold text-[#111111]">২. তথ্য সুরক্ষা:</h4>
+            <p>
+              গ্রাহকের কোনো ব্যক্তিগত তথ্য কোনো তৃতীয় পক্ষের কাছে বাণিজ্যিক উদ্দেশ্যে বিক্রি বা হস্তান্তর করা হবে না।
+            </p>
+          </div>
+          <div className="p-3 bg-[#FAF8F3] border border-[#DDD5C5] text-xs text-[#666666]">
+            <strong>ডেভেলপমেন্ট স্টেজ নোট:</strong> অফিসিয়াল কমার্শিয়াল লঞ্চের সাথে সাথে আইনি পরামর্শ অনুযায়ী বিস্তারিত প্রাইভেসি পলিসি ডকুমেন্টস প্রকাশ করা হবে।
+          </div>
+        </div>
+      ),
+    },
+    terms: {
+      title: 'ব্যবহারের শর্তাবলি (Terms & Conditions)',
+      icon: FileText,
+      body: (
+        <div className="space-y-4 font-bengali text-sm text-[#444444] leading-relaxed">
+          <p>
+            TEEZAN প্ল্যাটফর্ম ব্যবহারের সাধারণ শর্তাবলি:
+          </p>
+          <div className="space-y-2">
+            <h4 className="font-bold text-[#111111]">১. পণ্যের বিবরণ ও প্রদর্শনী:</h4>
+            <p>
+              ওয়েবসাইটে প্রদর্শিত পণ্যের রঙ ও টেক্সচার ডিভাইসের স্ক্রিন সেটিংসের কারণে সামান্য ভিন্ন লাগতে পারে। আমরা সর্বোচ্চ সঠিক বিবরণ দেওয়ার চেষ্টা করি।
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-bold text-[#111111]">২. অর্ডার নিশ্চিতকরণ:</h4>
+            <p>
+              ওয়েবসাইটে অর্ডার প্লেস করার পর স্টক প্রাপ্যতা যাচাই সাপেক্ষে গ্রাহককে চূড়ান্ত নিশ্চিতকরণ মেসেজ বা কল দেওয়া হবে।
+            </p>
+          </div>
+          <div className="p-3 bg-[#FAF8F3] border border-[#DDD5C5] text-xs text-[#666666]">
+            <strong>প্রতিষ্ঠাতা তথ্য:</strong> TEEZAN এর প্রতিষ্ঠাতা <strong>Abdul Halim</strong>।
+          </div>
+        </div>
+      ),
+    },
+    contact: {
+      title: 'যোগাযোগ ও কাস্টমার কেয়ার',
+      icon: Mail,
+      body: (
+        <div className="space-y-4 font-bengali text-sm text-[#444444] leading-relaxed">
+          <p>
+            TEEZAN-এর সাথে যুক্ত হওয়া বা যেকোনো তথ্য জানার জন্য:
+          </p>
+          <div className="p-4 bg-[#FAF8F3] border border-[#DDD5C5] space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-[#111111]">ব্র্যান্ড নাম:</span>
+              <span className="font-english font-semibold">TEEZAN</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-[#111111]">ট্যাগলাইন:</span>
+              <span className="font-english text-xs text-[#C6A36A] font-bold">Wear Your Identity.</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-[#111111]">প্রতিষ্ঠাতা:</span>
+              <span className="font-english font-medium">Abdul Halim</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-[#111111]">অবস্থান:</span>
+              <span>ঢাকা, বাংলাদেশ</span>
+            </div>
+          </div>
+          <p className="text-xs text-[#666666]">
+            অফিশিয়াল হেল্পলাইন নম্বর এবং কাস্টমার কেয়ার ইমেইল অ্যাকাউন্ট স্টোরের লাইভ উদ্বোধনের সময় সক্রিয় করা হবে।
+          </p>
+        </div>
+      ),
+    },
+  };
+
+  const current = contentMap[type];
+  const IconComp = current.icon;
+
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      <div
+        className="fixed inset-0 bg-[#111111]/75 backdrop-blur-xs transition-opacity"
+        onClick={onClose}
+      />
+
+      <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
+        <div className="relative w-full max-w-xl bg-[#FFFFFF] shadow-2xl border border-[#D5CDBD] p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-150">
+          
+          <div className="flex items-center justify-between pb-4 border-b border-[#E8E2D5]">
+            <div className="flex items-center gap-2">
+              <IconComp className="w-5 h-5 text-[#C6A36A]" />
+              <h3 className="font-bengali text-xl font-bold text-[#111111]">
+                {current.title}
+              </h3>
+            </div>
+            <button
+              onClick={onClose}
+              className="p-1 rounded-full text-[#777777] hover:text-[#111111] transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="pt-5">
+            {current.body}
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-[#E8E2D5] flex justify-end">
+            <button
+              onClick={onClose}
+              className="px-5 py-2 bg-[#111111] text-[#FFFFFF] text-xs font-bengali font-semibold hover:bg-[#2B2B2B] transition-colors"
+            >
+              বন্ধ করুন
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};

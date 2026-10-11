@@ -1,0 +1,6 @@
+{
+  "name": "TEEZAN — Wear Your Identity",
+  "description": "TEEZAN — প্রিমিয়াম স্ট্রিটওয়্যার ও ফ্যাশন ই-কমার্স প্ল্যাটফর্ম। Founded by Abdul Halim.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
