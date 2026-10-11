@@ -6,12 +6,14 @@ interface ProductCardProps {
   product: Product;
   onQuickView: (product: Product) => void;
   onAddToCart: (product: Product, size: SizeOption, color: ProductColor) => void;
+  onOrderNow?: (product: Product, size: SizeOption, color: ProductColor) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onQuickView,
   onAddToCart,
+  onOrderNow,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [selectedSize, setSelectedSize] = useState<SizeOption>(product.availableSizes[0] || 'L');
@@ -23,6 +25,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     onAddToCart(product, selectedSize, selectedColor);
     setIsAddedRecently(true);
     setTimeout(() => setIsAddedRecently(false), 1800);
+  };
+
+  const handleOrder = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onOrderNow) {
+      onOrderNow(product, selectedSize, selectedColor);
+    } else {
+      handleAdd(e);
+    }
   };
 
   return (
@@ -165,26 +176,35 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           ))}
         </div>
 
-        {/* Add to Cart Button */}
-        <div className="pt-2">
+        {/* Dual Actions: Order Now & Add to Cart */}
+        <div className="pt-2 grid grid-cols-2 gap-2">
+          <button
+            onClick={handleOrder}
+            className="w-full py-2.5 px-2 bg-[#111111] hover:bg-[#2A2A2A] text-[#FFFFFF] text-xs font-bengali font-bold transition-all flex items-center justify-center gap-1 cursor-pointer shadow-xs"
+            aria-label={`অর্ডার করুন - ${product.nameBn}`}
+          >
+            <span>অর্ডার করুন</span>
+            <span className="text-[#C6A36A] font-english font-bold">&rarr;</span>
+          </button>
+
           <button
             onClick={handleAdd}
-            className={`w-full py-2.5 px-3 text-xs sm:text-sm font-bengali font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
+            className={`w-full py-2.5 px-2 text-xs font-bengali font-semibold transition-all border flex items-center justify-center gap-1.5 cursor-pointer ${
               isAddedRecently
-                ? 'bg-[#2E7D32] text-[#FFFFFF]'
-                : 'bg-[#111111] hover:bg-[#2A2A2A] text-[#FFFFFF]'
+                ? 'bg-[#2E7D32] text-[#FFFFFF] border-[#2E7D32]'
+                : 'bg-[#FAF8F5] hover:bg-[#EAE4D6] text-[#111111] border-[#DDD5C5]'
             }`}
             aria-label={`কার্টে যোগ করুন - ${product.nameBn}`}
           >
             {isAddedRecently ? (
               <>
-                <Check className="w-4 h-4 text-[#FFFFFF]" />
-                <span>যোগ করা হয়েছে!</span>
+                <Check className="w-3.5 h-3.5" />
+                <span>যোগ হয়েছে</span>
               </>
             ) : (
               <>
                 <ShoppingBag className="w-3.5 h-3.5 text-[#C6A36A]" />
-                <span>কার্টে যোগ করুন</span>
+                <span>কার্ট</span>
               </>
             )}
           </button>

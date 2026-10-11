@@ -51,3 +51,24 @@ export interface FAQItem {
   answerBn: string;
   noteBn?: string;
 }
+
+export interface CustomerDetails {
+  fullName: string;
+  phone: string;
+  address: string;
+  city: string;
+  deliveryArea: 'inside_dhaka' | 'outside_dhaka';
+  paymentMethod: 'cod' | 'bkash';
+  notes?: string;
+}
+
+export interface Order {
+  id: string;
+  createdAt: string;
+  customer: CustomerDetails;
+  items: CartItem[];
+  subtotal: number;
+  deliveryFee: number;
+  total: number;
+  status: 'pending' | 'confirmed';
+}

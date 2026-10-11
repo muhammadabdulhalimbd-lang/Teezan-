@@ -9,6 +9,7 @@ interface CartDrawerProps {
   onUpdateQuantity: (id: string, delta: number) => void;
   onRemoveItem: (id: string) => void;
   onClearCart: () => void;
+  onOpenCheckout: () => void;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -18,6 +19,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onUpdateQuantity,
   onRemoveItem,
   onClearCart,
+  onOpenCheckout,
 }) => {
   if (!isOpen) return null;
 
@@ -40,7 +42,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <ShoppingBag className="w-5 h-5 text-[#C6A36A]" />
               <h2 className="font-bengali text-lg font-bold">শপিং কার্ট</h2>
               <span className="text-xs font-english bg-[#2A2A2A] text-[#C6A36A] px-2 py-0.5 ml-1">
-                {items.length} {items.length === 1 ? 'আইটেম' : 'আইটেম'}
+                {items.length}টি পণ্য
               </span>
             </div>
 
@@ -53,11 +55,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </button>
           </div>
 
-          {/* Development Stage Notice Banner */}
-          <div className="bg-[#E7E0D2] px-4 py-2.5 border-b border-[#D8CEBD] flex items-start gap-2 text-xs font-bengali text-[#444444]">
+          {/* Active Order Notice Banner */}
+          <div className="bg-[#E7E0D2] px-4 py-2.5 border-b border-[#D8CEBD] flex items-start gap-2 text-xs font-bengali text-[#333333]">
             <Info className="w-4 h-4 text-[#C6A36A] shrink-0 mt-0.5" />
             <span>
-              <strong>ডেভেলপমেন্ট মোড:</strong> এটি ক্লায়েন্ট-সাইড কার্ট সিমুলেশন। কোনো আসল চার্জ বা পেমেন্ট গেটওয়ে এখনো সক্রিয় নয়।
+              <strong>ক্যাশ অন ডেলিভারি চালু রয়েছে:</strong> সারা বাংলাদেশে হোম ডেলিভারিতে পণ্য হাতে পেয়ে মূল্য পরিশোধ করতে পারবেন।
             </span>
           </div>
 
@@ -183,6 +185,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
 
               <div className="space-y-2.5">
+                {/* Primary: Website Checkout Button */}
+                <button
+                  type="button"
+                  onClick={onOpenCheckout}
+                  className="w-full py-4 bg-[#111111] hover:bg-[#252525] text-[#FFFFFF] font-bengali text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg"
+                >
+                  <span>অর্ডার করতে এগিয়ে যান (ক্যাশ অন ডেলিভারি)</span>
+                  <ArrowRight className="w-4 h-4 text-[#C6A36A]" />
+                </button>
+
                 {/* Direct WhatsApp Order Button */}
                 <a
                   href={`https://wa.me/8801605529912?text=${encodeURIComponent(
@@ -192,21 +204,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-sm font-bold flex items-center justify-center gap-2 transition-colors shadow-sm"
+                  className="w-full py-3 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-xs"
                 >
-                  <span>হোয়াটসঅ্যাপে অর্ডার করুন (01605529912)</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>হোয়াটসঅ্যাপে সরাসরি অর্ডার পাঠান (01605529912)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
-
-                <button
-                  onClick={() => {
-                    alert('ধন্যবাদ! TEEZAN বর্তমানে স্টেজ-১ প্রিভিউতে রয়েছে। সরাসরি নিশ্চিত অর্ডারের জন্য উপরের "হোয়াটসঅ্যাপে অর্ডার করুন" বাটনে ক্লিক করুন (01605529912)।');
-                  }}
-                  className="w-full py-3 bg-[#111111] hover:bg-[#2B2B2B] text-[#FFFFFF] font-bengali text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                >
-                  <span>ওয়েবসাইটে চেকআউট প্রসেস</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C6A36A]" />
-                </button>
 
                 <button
                   onClick={onClearCart}

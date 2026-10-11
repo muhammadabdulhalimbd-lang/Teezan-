@@ -7,6 +7,7 @@ interface QuickViewModalProps {
   onClose: () => void;
   onAddToCart: (product: Product, size: SizeOption, color: ProductColor, quantity: number) => void;
   onOpenSizeGuide: () => void;
+  onInstantOrder?: (product: Product, size: SizeOption, color: ProductColor, quantity: number) => void;
 }
 
 export const QuickViewModal: React.FC<QuickViewModalProps> = ({
@@ -14,6 +15,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   onClose,
   onAddToCart,
   onOpenSizeGuide,
+  onInstantOrder,
 }) => {
   if (!product) return null;
 
@@ -30,6 +32,14 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
       setIsAdded(false);
       onClose();
     }, 1200);
+  };
+
+  const handleInstantBuy = () => {
+    if (onInstantOrder) {
+      onInstantOrder(product, selectedSize, selectedColor, quantity);
+    } else {
+      handleAddToCart();
+    }
   };
 
   return (
@@ -197,14 +207,24 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                   </div>
                 </div>
 
-                {/* Add to Cart Action */}
-                <div className="pt-2">
+                {/* Order & Cart Actions */}
+                <div className="pt-2 space-y-2">
+                  {/* Primary: Instant Buy / Order Now */}
+                  <button
+                    onClick={handleInstantBuy}
+                    className="w-full py-3.5 bg-[#111111] hover:bg-[#252525] text-[#FFFFFF] font-bengali text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+                  >
+                    <span>এখনই অর্ডার করুন (ক্যাশ অন ডেলিভারি)</span>
+                    <span className="text-[#C6A36A] font-english font-bold">&rarr;</span>
+                  </button>
+
+                  {/* Secondary: Add to Cart */}
                   <button
                     onClick={handleAddToCart}
-                    className={`w-full py-3.5 font-bengali text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                    className={`w-full py-3 font-bengali text-xs font-semibold flex items-center justify-center gap-2 border transition-all cursor-pointer ${
                       isAdded
-                        ? 'bg-[#2E7D32] text-[#FFFFFF]'
-                        : 'bg-[#111111] hover:bg-[#2B2B2B] text-[#FFFFFF]'
+                        ? 'bg-[#2E7D32] text-[#FFFFFF] border-[#2E7D32]'
+                        : 'bg-[#F9F8F5] hover:bg-[#EAE4D6] text-[#111111] border-[#DDD5C5]'
                     }`}
                   >
                     {isAdded ? (

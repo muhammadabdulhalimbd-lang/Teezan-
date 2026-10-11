@@ -7,6 +7,7 @@ interface ProductGridProps {
   products: Product[];
   onQuickView: (product: Product) => void;
   onAddToCart: (product: Product, size: SizeOption, color: ProductColor) => void;
+  onOrderNow?: (product: Product, size: SizeOption, color: ProductColor) => void;
   activeFilter: string;
   onFilterChange: (category: string) => void;
 }
@@ -15,6 +16,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   products,
   onQuickView,
   onAddToCart,
+  onOrderNow,
   activeFilter,
   onFilterChange,
 }) => {
@@ -92,6 +94,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 product={p}
                 onQuickView={onQuickView}
                 onAddToCart={onAddToCart}
+                onOrderNow={onOrderNow}
               />
             ))}
           </div>
@@ -135,6 +138,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                   product={prod}
                   onQuickView={onQuickView}
                   onAddToCart={onAddToCart}
+                  onOrderNow={onOrderNow}
                 />
               ))}
             </div>
@@ -178,6 +182,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                   product={prod}
                   onQuickView={onQuickView}
                   onAddToCart={onAddToCart}
+                  onOrderNow={onOrderNow}
                 />
               ))}
             </div>
