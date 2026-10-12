@@ -22,11 +22,11 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 }) => {
   const [showAllProducts, setShowAllProducts] = useState(false);
 
-  // New arrivals: items flagged isNew or first 4
-  const newArrivals = products.filter((p) => p.isNew || p.id === 'tz-001' || p.id === 'tz-002' || p.id === 'tz-003' || p.id === 'tz-004').slice(0, 4);
+  // New arrivals: all items marked isNew
+  const newArrivals = products.filter((p) => p.isNew);
 
-  // Best sellers: items flagged isBestSeller
-  const bestSellers = products.filter((p) => p.isBestSeller || p.id === 'tz-005' || p.id === 'tz-006' || p.id === 'tz-007' || p.id === 'tz-008').slice(0, 4);
+  // Best sellers: all items marked isBestSeller
+  const bestSellers = products.filter((p) => p.isBestSeller);
 
   // Filtered list when category filter is active or show all
   const filteredProducts = activeFilter === 'all'

@@ -1,12 +1,51 @@
-import React from 'react';
-import { ArrowDownRight, Sparkles, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowDownRight, Sparkles, Check, ShoppingBag } from 'lucide-react';
 
 interface HeroProps {
   onExploreClick: () => void;
   onAboutClick: () => void;
 }
 
+const HERO_DROPS = [
+  {
+    id: 'tz-009',
+    badge: 'NEW TOP DROP 🔥',
+    tagBn: 'টপ পিক',
+    titleBn: 'রিফ্লেক্টিভ পোর্ট্রেট ওভারসাইজড টি',
+    titleEn: 'Reflective Portrait Oversized Tee',
+    price: '৳ ১,০৫০',
+    originalPrice: '৳ ১,২৫০',
+    fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png',
+  },
+  {
+    id: 'tz-010',
+    badge: 'HOT URBAN DROP 🔥',
+    tagBn: 'হট পিক',
+    titleBn: 'সিগনেচার আরবান স্ট্রিট গ্রাফিক টি',
+    titleEn: 'Signature Urban Street Graphic Tee',
+    price: '৳ ৯৮০',
+    originalPrice: '৳ ১,১৮০',
+    fitBn: 'রিলাক্সড বক্সি ফিট',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png',
+  },
+  {
+    id: 'tz-001',
+    badge: 'CLASSIC DROP',
+    tagBn: 'ক্লাসিক',
+    titleBn: 'বাংলা গ্রাফিক ওভারসাইজড টি',
+    titleEn: 'Bengali Graphic Drop Shoulder Tee',
+    price: '৳ ৯৫০',
+    originalPrice: '৳ ১,১৫০',
+    fitBn: 'ড্রপ শোল্ডার ওভারসাইজড',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695520/Bengali_Graphic_Tee_in_a_Sunlit_Field.png',
+  },
+];
+
 export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
+  const [activeDropIndex, setActiveDropIndex] = useState(0);
+  const activeDrop = HERO_DROPS[activeDropIndex];
+
   return (
     <section id="hero" className="relative overflow-hidden bg-[#F3F0E8] border-b border-[#E0D9CB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 lg:py-20">
@@ -17,13 +56,13 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
             
             {/* Small Label */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#EAE4D6] border border-[#D5CDBD] text-[#111111]">
-              <span className="w-2 h-2 rounded-full bg-[#C6A36A]"></span>
+              <span className="w-2 h-2 rounded-full bg-[#C6A36A] animate-pulse"></span>
               <span className="font-english text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#111111]">
-                INTRODUCING TEEZAN
+                TEEZAN PREMIUM COLLECTION
               </span>
               <span className="text-xs text-[#C6A36A] font-semibold">|</span>
               <span className="text-[11px] font-english font-medium text-[#666666] tracking-wider">
-                DROP 01
+                DROP 2026
               </span>
             </div>
 
@@ -87,45 +126,92 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
 
           </div>
 
-          {/* Right Column: Editorial Fashion Imagery - Perfectly framed and aligned */}
+          {/* Right Column: Featured Product Imagery with Instant Drop Selector */}
           <div className="lg:col-span-6 flex justify-center lg:justify-end">
             <div className="w-full max-w-md lg:max-w-lg">
               
-              {/* Main Fashion Photo Container - Unobstructed and cleanly fitted */}
+              {/* Main Fashion Photo Container */}
               <div className="relative aspect-[3/4] w-full bg-[#FFFFFF] border border-[#D5CDBD] shadow-xl overflow-hidden group">
                 <img
-                  src="https://res.cloudinary.com/daqyowoz/image/upload/v1791695520/Bengali_Graphic_Tee_in_a_Sunlit_Field.png"
-                  alt="TEEZAN Bengali Graphic Drop Shoulder Tee"
-                  className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                  key={activeDrop.id}
+                  src={activeDrop.image}
+                  alt={activeDrop.titleBn}
+                  className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03] animate-in fade-in duration-300"
                   loading="eager"
                 />
 
                 {/* Minimal Luxury Corner Badge */}
-                <div className="absolute top-3.5 left-3.5 z-10">
+                <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-2">
                   <span className="bg-[#111111]/90 backdrop-blur-md text-[#F3F0E8] text-[10px] font-english font-bold tracking-widest uppercase px-3 py-1 border border-[#333333]">
-                    ORIGINAL DROP
+                    {activeDrop.badge}
                   </span>
+                </div>
+
+                {/* Instant Order Button Overlay on Hover */}
+                <div className="absolute bottom-3 right-3 z-10">
+                  <button
+                    onClick={onExploreClick}
+                    className="px-4 py-2 bg-[#111111]/90 backdrop-blur-sm hover:bg-[#111111] text-[#FFFFFF] text-xs font-bengali font-semibold shadow-lg flex items-center gap-1.5 transition-all cursor-pointer border border-[#444444]"
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5 text-[#C6A36A]" />
+                    <span>অর্ডার করুন</span>
+                  </button>
                 </div>
               </div>
 
-              {/* Clean Bottom Product Summary Bar - Located cleanly under the picture */}
+              {/* Clean Bottom Product Summary Bar */}
               <div className="mt-3 p-4 bg-[#FFFFFF] border border-[#E0D9CB] shadow-xs flex items-center justify-between">
                 <div>
                   <span className="text-[10px] tracking-[0.2em] text-[#C6A36A] uppercase font-english font-bold block">
-                    FEATURED STREETWEAR
+                    FEATURED SPOTLIGHT • {activeDrop.tagBn}
                   </span>
                   <span className="font-bengali text-sm font-bold text-[#111111]">
-                    বাংলা গ্রাফিক ড্রপ শোল্ডার টি-শার্ট
+                    {activeDrop.titleBn}
+                  </span>
+                  <span className="block text-[11px] text-[#666666] font-bengali">
+                    {activeDrop.fitBn}
                   </span>
                 </div>
                 <div className="text-right">
                   <span className="font-english text-base font-bold text-[#111111] block">
-                    ৳ ৯৫০
+                    {activeDrop.price}
                   </span>
-                  <span className="font-bengali text-[11px] text-[#2E7D32] font-semibold">
-                    রেডি স্টক
+                  <span className="font-english text-xs text-[#999999] line-through block">
+                    {activeDrop.originalPrice}
                   </span>
                 </div>
+              </div>
+
+              {/* Top Featured Drops Selector Pills */}
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {HERO_DROPS.map((drop, idx) => {
+                  const isCurrent = activeDropIndex === idx;
+                  return (
+                    <button
+                      key={drop.id}
+                      onClick={() => setActiveDropIndex(idx)}
+                      className={`p-2 text-left border transition-all cursor-pointer flex items-center gap-2 ${
+                        isCurrent
+                          ? 'bg-[#111111] text-[#FFFFFF] border-[#111111] shadow-sm'
+                          : 'bg-[#FFFFFF] text-[#333333] border-[#E0D9CB] hover:border-[#111111]'
+                      }`}
+                    >
+                      <img
+                        src={drop.image}
+                        alt=""
+                        className="w-8 h-8 object-cover rounded-none shrink-0"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <span className={`block text-[10px] truncate font-bengali font-bold ${isCurrent ? 'text-[#C6A36A]' : 'text-[#111111]'}`}>
+                          {idx === 0 ? 'রিফ্লেক্টিভ' : idx === 1 ? 'স্ট্রিট গ্রাফিক' : 'বাংলা গ্রাফিক'}
+                        </span>
+                        <span className={`block text-[10px] font-english ${isCurrent ? 'text-[#E0D9CB]' : 'text-[#777777]'}`}>
+                          {drop.price}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
 
             </div>

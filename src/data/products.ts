@@ -10,7 +10,56 @@ import { Product, Category, FAQItem } from '../types';
  */
 
 export const SAMPLE_PRODUCTS: Product[] = [
-  // --- New Arrivals (নতুন এসেছে) ---
+  // --- Featured Top Drops (শীর্ষ পছন্দ ও নতুন আগমন) ---
+  {
+    id: 'tz-009',
+    nameBn: 'রিফ্লেক্টিভ পোর্ট্রেট ওভারসাইজড টি',
+    nameEn: 'Reflective Portrait Oversized Tee',
+    category: 'oversized',
+    categoryBn: 'ওভারসাইজড টি-শার্ট',
+    price: 1050,
+    originalPrice: 1250,
+    isNew: true,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png',
+    descriptionBn: 'শান্ত প্রকৃতির অনুভূতি ও চিন্তাশীল আত্মপরিচয়ের নান্দনিক রিফ্লেক্টিভ আর্টওয়ার্ক। প্রিমিয়াম কম্বড কটন ফ্যাব্রিকে তৈরি বিশেষ ওভারসাইজড ড্রপ।',
+    fabricBn: '১০০% হেভিওয়েট প্রিমিয়াম কম্বড কটন',
+    gsm: 230,
+    colors: [
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
+      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
+    ],
+    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
+    tagBn: 'টপ ড্রপ 🔥',
+    isSampleData: false
+  },
+  {
+    id: 'tz-010',
+    nameBn: 'সিগনেচার আরবান স্ট্রিট গ্রাফিক টি',
+    nameEn: 'Signature Urban Street Graphic Tee',
+    category: 'typography',
+    categoryBn: 'টাইপোগ্রাফি টি-শার্ট',
+    price: 980,
+    originalPrice: 1180,
+    isNew: true,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png',
+    descriptionBn: 'TEEZAN-এর আধুনিক স্ট্রিটওয়্যার এবং আত্মপ্রকাশমূলক টাইপোগ্রাফির বিশেষ মেলবন্ধন। সারাদিনের স্বাচ্ছন্দ্য ও আত্মবিশ্বাসী ব্যক্তিত্বের জন্য প্রস্তুতকৃত।',
+    fabricBn: '১০০% কম্প্যাক্ট প্রিমিয়াম সুতি',
+    gsm: 220,
+    colors: [
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
+      { nameBn: 'চারকোল গ্রে', nameEn: 'Charcoal Grey', hex: '#2C2C2C' }
+    ],
+    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    fitBn: 'রিলাক্সড বক্সি ফিট',
+    tagBn: 'হট ড্রপ 🔥',
+    isSampleData: false
+  },
+  // --- Other New Arrivals & Signatures ---
   {
     id: 'tz-001',
     nameBn: 'বাংলা গ্রাফিক ওভারসাইজড টি',
@@ -212,16 +261,16 @@ export const CATEGORIES_DATA: Category[] = [
     titleBn: 'ওভারসাইজড টি-শার্ট',
     titleEn: 'Oversized T-Shirts',
     descriptionBn: 'ড্রপ-শোল্ডার রিল্যাক্সড ফিট ও আধুনিক স্ট্রিটওয়্যার স্টাইল',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000c350821194c4a4ce1a5916d0.png',
-    badgeBn: 'জনপ্রিয়'
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png',
+    badgeBn: 'টপ পিক 🔥'
   },
   {
     id: 'typography',
     titleBn: 'টাইপোগ্রাফি টি-শার্ট',
     titleEn: 'Typography T-Shirts',
     descriptionBn: 'বাংলা ও ইংরেজি বোল্ড অক্ষরের আত্মপ্রকাশমূলক নান্দনিক নকশা',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695534/Premium_Cotton_Jibon_Jatra_T-Shirt.png',
-    badgeBn: 'সিগনেচার'
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png',
+    badgeBn: 'হট ড্রপ 🔥'
   },
   {
     id: 'regular',
