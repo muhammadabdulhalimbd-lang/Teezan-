@@ -8,37 +8,52 @@ interface HeroProps {
 
 const HERO_DROPS = [
   {
+    id: 'tz-001',
+    badge: 'EXCLUSIVE HERO DROP 🔥',
+    tagBn: 'সিগনেচার আর্টওয়ার্ক',
+    shortNameBn: 'সানলিট বাংলা টি',
+    titleBn: 'বাংলা গ্রাফিক টি - সানলিট ফিল্ড এডিশন',
+    titleEn: 'Bengali Graphic Tee in a Sunlit Field',
+    price: '৳ ৫৯০',
+    originalPrice: '৳ ৭৫০',
+    fitBn: 'বক্সি ওভারসাইজড কাট • ১০০% প্রিমিয়াম সুতি',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695520/Bengali_Graphic_Tee_in_a_Sunlit_Field.png',
+  },
+  {
+    id: 'tz-002',
+    badge: 'জীবনযাত্রা সিগনেচার 🔥',
+    tagBn: 'জীবনযাত্রা স্পেশাল',
+    shortNameBn: 'জীবনযাত্রা টি',
+    titleBn: 'জীবনযাত্রা প্রিমিয়াম কটন টি',
+    titleEn: 'Premium Cotton Jibon Jatra T-Shirt',
+    price: '৳ ৫৯০',
+    originalPrice: '৳ ৭০০',
+    fitBn: 'বক্সি ওভারসাইজড কাট • ১০০% প্রিমিয়াম সুতি',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695534/Premium_Cotton_Jibon_Jatra_T-Shirt.png',
+  },
+  {
+    id: 'tz-012',
+    badge: 'DISTRESSED DROP 🔥',
+    tagBn: 'ডিসট্রেসড',
+    shortNameBn: 'ডিসট্রেসড টি',
+    titleBn: 'ডিসট্রেসড বাংলা গ্রাফিক ওভারসাইজড টি',
+    titleEn: 'Distressed Bengali Graphic Tee',
+    price: '৳ ৫৮০',
+    originalPrice: '৳ ৭২০',
+    fitBn: 'রিল্যাক্সড ড্রপ-শোল্ডার কাট',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791719939/Distressed_Bengali_Graphic_Tee_Mockup.png',
+  },
+  {
     id: 'tz-009',
-    badge: 'NEW TOP DROP 🔥',
-    tagBn: 'টপ পিক',
+    badge: 'TOP DROP 🔥',
+    tagBn: 'রিফ্লেক্টিভ',
+    shortNameBn: 'রিফ্লেক্টিভ টি',
     titleBn: 'রিফ্লেক্টিভ পোর্ট্রেট ওভারসাইজড টি',
     titleEn: 'Reflective Portrait Oversized Tee',
     price: '৳ ৬০০',
     originalPrice: '৳ ৭৫০',
     fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
     image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png',
-  },
-  {
-    id: 'tz-010',
-    badge: 'HOT URBAN DROP 🔥',
-    tagBn: 'হট পিক',
-    titleBn: 'সিগনেচার আরবান স্ট্রিট গ্রাফিক টি',
-    titleEn: 'Signature Urban Street Graphic Tee',
-    price: '৳ ৬০০',
-    originalPrice: '৳ ৭২০',
-    fitBn: 'রিলাক্সড বক্সি ফিট',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png',
-  },
-  {
-    id: 'tz-001',
-    badge: 'CLASSIC DROP',
-    tagBn: 'ক্লাসিক',
-    titleBn: 'বাংলা গ্রাফিক ওভারসাইজড টি',
-    titleEn: 'Bengali Graphic Drop Shoulder Tee',
-    price: '৳ ৫৮০',
-    originalPrice: '৳ ৬৮০',
-    fitBn: 'ড্রপ শোল্ডার ওভারসাইজড',
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695520/Bengali_Graphic_Tee_in_a_Sunlit_Field.png',
   },
 ];
 
@@ -183,7 +198,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
               </div>
 
               {/* Top Featured Drops Selector Pills */}
-              <div className="mt-3 grid grid-cols-3 gap-2">
+              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {HERO_DROPS.map((drop, idx) => {
                   const isCurrent = activeDropIndex === idx;
                   return (
@@ -192,7 +207,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
                       onClick={() => setActiveDropIndex(idx)}
                       className={`p-2 text-left border transition-all cursor-pointer flex items-center gap-2 ${
                         isCurrent
-                          ? 'bg-[#111111] text-[#FFFFFF] border-[#111111] shadow-sm'
+                          ? 'bg-[#111111] text-[#FFFFFF] border-[#111111] shadow-sm ring-1 ring-[#C6A36A]'
                           : 'bg-[#FFFFFF] text-[#333333] border-[#E0D9CB] hover:border-[#111111]'
                       }`}
                     >
@@ -203,7 +218,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
                       />
                       <div className="min-w-0 flex-1">
                         <span className={`block text-[10px] truncate font-bengali font-bold ${isCurrent ? 'text-[#C6A36A]' : 'text-[#111111]'}`}>
-                          {idx === 0 ? 'রিফ্লেক্টিভ' : idx === 1 ? 'স্ট্রিট গ্রাফিক' : 'বাংলা গ্রাফিক'}
+                          {drop.shortNameBn}
                         </span>
                         <span className={`block text-[10px] font-english ${isCurrent ? 'text-[#E0D9CB]' : 'text-[#777777]'}`}>
                           {drop.price}

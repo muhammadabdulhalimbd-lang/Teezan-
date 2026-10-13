@@ -10,79 +10,32 @@ import { Product, Category, FAQItem } from '../types';
  */
 
 export const SAMPLE_PRODUCTS: Product[] = [
-  // --- Featured Top Drops (শীর্ষ পছন্দ ও নতুন আগমন) ---
+  // =========================================================================
+  // প্রথম লাইন (First Line): ১টি টি-শার্টের ছবি এবং তার পাশে ১টি মডেলের ছবি (আমার ছবি)
+  // প্রতি লাইনে প্রতিটি টি-শার্ট ও ছবি একবারই থাকবে, কোনো পুনরাবৃত্তি ছাড়া
+  // =========================================================================
   {
-    id: 'tz-009',
-    nameBn: 'রিফ্লেক্টিভ পোর্ট্রেট ওভারসাইজড টি',
-    nameEn: 'Reflective Portrait Oversized Tee',
+    id: 'tz-012',
+    nameBn: 'ডিসট্রেসড বাংলা গ্রাফিক ওভারসাইজড টি',
+    nameEn: 'Distressed Bengali Graphic Tee',
     category: 'oversized',
     categoryBn: 'ওভারসাইজড টি-শার্ট',
-    price: 600,
-    originalPrice: 750,
-    isNew: true,
-    isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png',
-    descriptionBn: 'শান্ত প্রকৃতির অনুভূতি ও চিন্তাশীল আত্মপরিচয়ের নান্দনিক রিফ্লেক্টিভ আর্টওয়ার্ক। প্রিমিয়াম কম্বড কটন ফ্যাব্রিকে তৈরি বিশেষ ওভারসাইজড ড্রপ।',
-    fabricBn: '১০০% হেভিওয়েট প্রিমিয়াম কম্বড কটন',
-    gsm: 230,
-    colors: [
-      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
-      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
-    ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
-    fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
-    tagBn: 'টপ ড্রপ 🔥',
-    isSampleData: false
-  },
-  {
-    id: 'tz-010',
-    nameBn: 'সিগনেচার আরবান স্ট্রিট গ্রাফিক টি',
-    nameEn: 'Signature Urban Street Graphic Tee',
-    category: 'typography',
-    categoryBn: 'টাইপোগ্রাফি টি-শার্ট',
-    price: 600,
+    price: 580,
     originalPrice: 720,
     isNew: true,
     isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png',
-    descriptionBn: 'TEEZAN-এর আধুনিক স্ট্রিটওয়্যার এবং আত্মপ্রকাশমূলক টাইপোগ্রাফির বিশেষ মেলবন্ধন। সারাদিনের স্বাচ্ছন্দ্য ও আত্মবিশ্বাসী ব্যক্তিত্বের জন্য প্রস্তুতকৃত।',
-    fabricBn: '১০০% কম্প্যাক্ট প্রিমিয়াম সুতি',
-    gsm: 220,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791719939/Distressed_Bengali_Graphic_Tee_Mockup.png', // টি-শার্টের ছবি (Mockup)
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791873775/Portrait_in_a_Bengali_Graphic_T-Shirt.png', // মডেলের ছবি (আমার ছবি)
+    descriptionBn: 'ভিন্টেজ ডিসট্রেসড বাংলা টাইপোগ্রাফি ও আর্টওয়ার্কের দুর্দান্ত মেলবন্ধন। আধুনিক স্ট্রিট ফ্যাশন এবং সাবলীল ব্যক্তিত্বের জন্য অনন্য ড্রপ।',
+    fabricBn: '১০০% সফট কম্বড সুতি (Combed Cotton)',
+    gsm: 225,
     colors: [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'চারকোল গ্রে', nameEn: 'Charcoal Grey', hex: '#2C2C2C' }
     ],
     availableSizes: ['M', 'L', 'XL', 'XXL'],
-    fitBn: 'রিলাক্সড বক্সি ফিট',
-    tagBn: 'হট ড্রপ 🔥',
-    isSampleData: false
-  },
-  // --- Other New Arrivals & Signatures ---
-  {
-    id: 'tz-001',
-    nameBn: 'বাংলা গ্রাফিক ওভারসাইজড টি',
-    nameEn: 'Bengali Graphic Oversized Tee',
-    category: 'oversized',
-    categoryBn: 'ওভারসাইজড টি-শার্ট',
-    price: 580,
-    originalPrice: 680,
-    isNew: true,
-    isBestSeller: false,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695520/Bengali_Graphic_Tee_in_a_Sunlit_Field.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
-    descriptionBn: 'আরামদায়ক ড্রপ-শোল্ডার ফিট এবং ১০০% প্রিমিয়াম কম্বড কটনে তৈরি। মিনিমালিস্ট আধুনিক কাট ও বাংলা গ্রাফিক আর্টওয়ার্ক।',
-    fabricBn: '১০০% কম্বড কটন (Combed Cotton)',
-    gsm: 220,
-    colors: [
-      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
-      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' },
-      { nameBn: 'অলিভ গ্রিন', nameEn: 'Olive Green', hex: '#4A5340' }
-    ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
-    fitBn: 'রিলাক্সড ড্রপ-শোল্ডার ওভারসাইজড ফিট',
-    tagBn: 'নতুন আগমন',
+    fitBn: 'রিল্যাক্সড ড্রপ-শোল্ডার ফিট',
+    tagBn: 'টি-শার্ট ভিউ 🔥',
     isSampleData: false
   },
   {
@@ -95,8 +48,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     originalPrice: 700,
     isNew: true,
     isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695534/Premium_Cotton_Jibon_Jatra_T-Shirt.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791695534/Premium_Cotton_Jibon_Jatra_T-Shirt.png', // মডেলের ছবি (জীবনযাত্রা পরা আমার ছবি)
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000c350821194c4a4ce1a5916d0.png', // টি-শার্টের ফ্ল্যাট ছবি
     descriptionBn: 'TEEZAN-এর সিগনেচার "জীবনযাত্রা" আর্টওয়ার্ক। ১০০% প্রিমিয়াম সুতি কম্বড কটন এবং দীর্ঘস্থায়ী আরামদায়ক প্রিমিয়াম ফ্যাব্রিক।',
     fabricBn: '১০০% হেভিওয়েট প্রিমিয়াম কটন',
     gsm: 230,
@@ -106,33 +59,161 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
     availableSizes: ['M', 'L', 'XL', 'XXL'],
     fitBn: 'বক্সি ওভারসাইজড কাট',
-    tagBn: 'জীবনযাত্রা স্পেশাল',
+    tagBn: 'আমার ছবি (মডেল) 🔥',
     isSampleData: false
   },
   {
-    id: 'tz-003',
-    nameBn: 'ক্লাসিক ব্ল্যাক স্ট্রিটওয়্যার টি',
-    nameEn: 'Classic Black Streetwear Tee',
-    category: 'regular',
-    categoryBn: 'রেগুলার ফিট টি-শার্ট',
-    price: 500,
-    originalPrice: 600,
+    id: 'tz-006',
+    nameBn: 'বাংলা ক্যালিগ্রাফি ওভারসাইজড টি',
+    nameEn: 'Bangla Calligraphy Oversized Tee',
+    category: 'typography',
+    categoryBn: 'টাইপোগ্রাফি টি-শার্ট',
+    price: 600,
+    originalPrice: 720,
     isNew: true,
-    isBestSeller: false,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
-    descriptionBn: 'দৈনন্দিন স্টাইলিশ ব্যবহারের জন্য নিখুঁত রেগুলার ফিট টি-শার্ট। রিপ-নিট কলার এবং টেকসই ডাবল স্টিচিং সম্বলিত খাঁটি কালো রঙের প্রিমিয়াম কাপড়।',
-    fabricBn: '১০০% প্রিমিয়াম সুতি কম্প্যাক্ট ইয়ার্ন',
-    gsm: 200,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694676/file_000000008bbc82079f85c3a72b238db1.png', // টি-শার্টের ছবি (Calligraphy)
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
+    descriptionBn: 'আমাদের মাতৃভাষার নান্দনিক ক্যালিগ্রাফি সম্বলিত বিশেষ সংস্করণ। আধুনিক স্ট্রিট আর্ট এবং বাংলা লিপির মেলবন্ধনে তৈরি বিশেষ টি-শার্ট।',
+    fabricBn: '১০০% কম্বড প্রিমিয়াম কটন',
+    gsm: 240,
+    colors: [
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
+      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
+    ],
+    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড',
+    tagBn: 'টি-শার্ট ভিউ 🔥',
+    isSampleData: false
+  },
+  {
+    id: 'tz-009',
+    nameBn: 'রিফ্লেক্টিভ পোর্ট্রেট ওভারসাইজড টি',
+    nameEn: 'Reflective Portrait Oversized Tee',
+    category: 'oversized',
+    categoryBn: 'ওভারসাইজড টি-শার্ট',
+    price: 600,
+    originalPrice: 750,
+    isNew: true,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png', // মডেলের ছবি (আমার ছবি)
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png', // টি-শার্টের ছবি
+    descriptionBn: 'শান্ত প্রকৃতির অনুভূতি ও চিন্তাশীল আত্মপরিচয়ের নান্দনিক রিফ্লেক্টিভ আর্টওয়ার্ক। প্রিমিয়াম কম্বড কটন ফ্যাব্রিকে তৈরি বিশেষ ওভারসাইজড ড্রপ।',
+    fabricBn: '১০০% হেভিওয়েট প্রিমিয়াম কম্বড কটন',
+    gsm: 230,
+    colors: [
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
+      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
+    ],
+    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
+    tagBn: 'আমার ছবি (মডেল) 🔥',
+    isSampleData: false
+  },
+
+  // =========================================================================
+  // দ্বিতীয় লাইন (Second Line): কোনো ডুপ্লিকেট ছাড়া টি-শার্ট এবং মডেলের ছবি
+  // =========================================================================
+  {
+    id: 'tz-010',
+    nameBn: 'সিগনেচার আরবান স্ট্রিট গ্রাফিক টি',
+    nameEn: 'Signature Urban Street Graphic Tee',
+    category: 'typography',
+    categoryBn: 'টাইপোগ্রাফি টি-শার্ট',
+    price: 600,
+    originalPrice: 720,
+    isNew: true,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/file_00000000725c82089986e3db217c416e.png', // টি-শার্টের ছবি
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791726644/Reflective_Portrait_by_Calm_Waters.png', // মডেলের ছবি
+    descriptionBn: 'TEEZAN-এর আধুনিক স্ট্রিটওয়্যার এবং আত্মপ্রকাশমূলক টাইপোগ্রাফির বিশেষ মেলবন্ধন। সারাদিনের স্বাচ্ছন্দ্য ও আত্মবিশ্বাসী ব্যক্তিত্বের জন্য প্রস্তুতকৃত।',
+    fabricBn: '১০০% কম্প্যাক্ট প্রিমিয়াম সুতি',
+    gsm: 220,
     colors: [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'চারকোল গ্রে', nameEn: 'Charcoal Grey', hex: '#2C2C2C' }
     ],
     availableSizes: ['M', 'L', 'XL', 'XXL'],
-    fitBn: 'স্মার্ট রেগুলার ফিট',
-    tagBn: 'অল ডে কমফোর্ট',
+    fitBn: 'রিলাক্সড বক্সি ফিট',
+    tagBn: 'টি-শার্ট ভিউ 🔥',
     isSampleData: false
   },
+  {
+    id: 'tz-011',
+    nameBn: 'পোর্ট্রেট বাংলা গ্রাফিক টি-শার্ট',
+    nameEn: 'Portrait in a Bengali Graphic T-Shirt',
+    category: 'typography',
+    categoryBn: 'টাইপোগ্রাফি টি-শার্ট',
+    price: 600,
+    originalPrice: 750,
+    isNew: true,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791873775/Portrait_in_a_Bengali_Graphic_T-Shirt.png', // মডেলের ছবি (আমার ছবি)
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791719939/Distressed_Bengali_Graphic_Tee_Mockup.png', // টি-শার্টের ছবি
+    descriptionBn: 'বাংলা সংস্কৃতি ও সমসাময়িক চিত্রকলার নান্দনিক পোর্ট্রেট গ্রাফিক প্রিন্ট। হেভি ড্রপ-শোল্ডার কাটিং এবং ১০০% প্রিমিয়াম কম্বড সুতির দীর্ঘস্থায়ী আরাম।',
+    fabricBn: '১০০% হেভিওয়েট প্রিমিয়াম কম্বড কটন',
+    gsm: 230,
+    colors: [
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
+      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
+    ],
+    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
+    tagBn: 'আমার ছবি (মডেল) 🔥',
+    isSampleData: false
+  },
+  {
+    id: 'tz-005',
+    nameBn: 'মনোক্রোম ড্রপ শোল্ডার টি',
+    nameEn: 'Monochrome Drop Shoulder Tee',
+    category: 'oversized',
+    categoryBn: 'ওভারসাইজড টি-শার্ট',
+    price: 550,
+    originalPrice: 660,
+    isNew: false,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694662/file_0000000007948211ab656ac6f770e3eb.png', // টি-শার্টের ছবি
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000c350821194c4a4ce1a5916d0.png',
+    descriptionBn: 'ক্লিন মনোক্রোম টোন এবং প্রশস্ত স্লিভ কাটিং। যেকোনো আধুনিক আর্ট ও স্ট্রিট ফ্যাশনপ্রেমীর জন্য আদর্শ পোশাক।',
+    fabricBn: '১০০% হেভিওয়েট সুতি',
+    gsm: 230,
+    colors: [
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
+      { nameBn: 'অ্যাংলার গ্রে', nameEn: 'Angler Grey', hex: '#737373' }
+    ],
+    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    fitBn: 'ওয়াইড ড্রপ-শোল্ডার',
+    tagBn: 'টি-শার্ট ভিউ 🔥',
+    isSampleData: false
+  },
+  {
+    id: 'tz-007',
+    nameBn: 'র এজ হেভিওয়েট টি',
+    nameEn: 'Raw Edge Heavyweight Tee',
+    category: 'regular',
+    categoryBn: 'রেগুলার ফিট টি-শার্ট',
+    price: 520,
+    originalPrice: 620,
+    isNew: false,
+    isBestSeller: true,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694644/file_000000001a44820786c35d551bd33087.png', // টি-শার্টের ছবি
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694676/file_000000008bbc82079f85c3a72b238db1.png',
+    descriptionBn: 'হেভি জিএসএম ফ্যাব্রিকে তৈরি টেকসই ও প্রিমিয়াম ফিনিশিং। আধুনিক স্ট্রিট ফ্যাশনের রুচিশীল আউটলুক তৈরি করতে তৈরি।',
+    fabricBn: '২৪০ জিএসএম আল্ট্রা-কম্প্যাক্ট কটন',
+    gsm: 240,
+    colors: [
+      { nameBn: 'অলিভ গ্রিন', nameEn: 'Olive Green', hex: '#4A5340' },
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' }
+    ],
+    availableSizes: ['M', 'L', 'XL'],
+    fitBn: 'স্ট্রাকচার্ড রেগুলার কাট',
+    tagBn: 'টি-শার্ট ভিউ 🔥',
+    isSampleData: false
+  },
+
+  // =========================================================================
+  // তৃতীয় লাইন / অন্যান্য ডিজাইন
+  // =========================================================================
   {
     id: 'tz-004',
     nameBn: 'মিনিমাল গ্রাফিক টি',
@@ -141,10 +222,10 @@ export const SAMPLE_PRODUCTS: Product[] = [
     categoryBn: 'ওভারসাইজড টি-শার্ট',
     price: 500,
     originalPrice: 620,
-    isNew: true,
+    isNew: false,
     isBestSeller: false,
     image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000c350821194c4a4ce1a5916d0.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
     descriptionBn: 'সামনে পরিমিত মিনিমালিস্ট বুক-প্রিন্ট এবং পেছনে সূক্ষ্ম জ্যামিতিক নকশা। সাবলীল এবং মার্জিত ব্যক্তিত্বের জন্য দারুণ পছন্দ।',
     fabricBn: 'সফট-ওয়াশ বায়ো পলিশড কটন',
     gsm: 210,
@@ -158,102 +239,28 @@ export const SAMPLE_PRODUCTS: Product[] = [
     tagBn: 'মিনিমালিস্ট',
     isSampleData: false
   },
-
-  // --- Best Sellers (জনপ্রিয় কালেকশন) ---
   {
-    id: 'tz-005',
-    nameBn: 'মনোক্রোম ড্রপ শোল্ডার টি',
-    nameEn: 'Monochrome Drop Shoulder Tee',
-    category: 'oversized',
-    categoryBn: 'ওভারসাইজড টি-শার্ট',
-    price: 550,
-    originalPrice: 660,
-    isNew: false,
-    isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694662/file_0000000007948211ab656ac6f770e3eb.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694640/file_00000000d07482079a240bc432fb8dcd.png',
-    descriptionBn: 'ক্লিন মনোক্রোম টোন এবং প্রশস্ত স্লিভ কাটিং। যেকোনো আধুনিক আর্ট ও স্ট্রিট ফ্যাশনপ্রেমীর জন্য আদর্শ পোশাক।',
-    fabricBn: '১০০% হেভিওয়েট সুতি',
-    gsm: 230,
-    colors: [
-      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
-      { nameBn: 'অ্যাংলার গ্রে', nameEn: 'Angler Grey', hex: '#737373' }
-    ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
-    fitBn: 'ওয়াইড ড্রপ-শোল্ডার',
-    tagBn: 'জনপ্রিয় স্টাইল',
-    isSampleData: false
-  },
-  {
-    id: 'tz-006',
-    nameBn: 'বাংলা ক্যালিগ্রাফি ওভারসাইজড টি',
-    nameEn: 'Bangla Calligraphy Oversized Tee',
-    category: 'typography',
-    categoryBn: 'টাইপোগ্রাফি টি-শার্ট',
-    price: 600,
-    originalPrice: 720,
-    isNew: false,
-    isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694676/file_000000008bbc82079f85c3a72b238db1.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
-    descriptionBn: 'আমাদের মাতৃভাষার নান্দনিক ক্যালিগ্রাফি সম্বলিত বিশেষ সংস্করণ। আধুনিক স্ট্রিট আর্ট এবং বাংলা লিপির মেলবন্ধনে তৈরি বিশেষ টি-শার্ট।',
-    fabricBn: '১০০% কম্বড প্রিমিয়াম কটন',
-    gsm: 240,
-    colors: [
-      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
-      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
-    ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
-    fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড',
-    tagBn: 'বিশেষ সংস্করণ',
-    isSampleData: false
-  },
-  {
-    id: 'tz-007',
-    nameBn: 'র এজ হেভিওয়েট টি',
-    nameEn: 'Raw Edge Heavyweight Tee',
+    id: 'tz-003',
+    nameBn: 'ক্লাসিক ব্ল্যাক স্ট্রিটওয়্যার টি',
+    nameEn: 'Classic Black Streetwear Tee',
     category: 'regular',
     categoryBn: 'রেগুলার ফিট টি-শার্ট',
-    price: 520,
-    originalPrice: 620,
+    price: 500,
+    originalPrice: 600,
     isNew: false,
-    isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694644/file_000000001a44820786c35d551bd33087.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694676/file_000000008bbc82079f85c3a72b238db1.png',
-    descriptionBn: 'হেভি জিএসএম ফ্যাব্রিকে তৈরি টেকসই ও প্রিমিয়াম ফিনিশিং। আধুনিক স্ট্রিট ফ্যাশনের রুচিশীল আউটলুক তৈরি করতে তৈরি।',
-    fabricBn: '২৪০ জিএসএম আল্ট্রা-কম্প্যাক্ট কটন',
-    gsm: 240,
+    isBestSeller: false,
+    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_000000000228821184cd55433005f71f.png',
+    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694662/file_0000000007948211ab656ac6f770e3eb.png',
+    descriptionBn: 'দৈনন্দিন স্টাইলিশ ব্যবহারের জন্য নিখুঁত রেগুলার ফিট টি-শার্ট। রিপ-নিট কলার এবং টেকসই ডাবল স্টিচিং সম্বলিত খাঁটি কালো রঙের প্রিমিয়াম কাপড়।',
+    fabricBn: '১০০% প্রিমিয়াম সুতি কম্প্যাক্ট ইয়ার্ন',
+    gsm: 200,
     colors: [
-      { nameBn: 'অলিভ গ্রিন', nameEn: 'Olive Green', hex: '#4A5340' },
-      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' }
-    ],
-    availableSizes: ['M', 'L', 'XL'],
-    fitBn: 'স্ট্রাকচার্ড রেগুলার কাট',
-    tagBn: 'হেভি জিএসএম',
-    isSampleData: false
-  },
-  {
-    id: 'tz-008',
-    nameBn: 'সিলুয়েট বক্সি ফিট টি',
-    nameEn: 'Silhouette Boxy Fit Tee',
-    category: 'oversized',
-    categoryBn: 'ওভারসাইজড টি-শার্ট',
-    price: 550,
-    originalPrice: 670,
-    isNew: false,
-    isBestSeller: true,
-    image: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694657/file_00000000e77c8207a5e24a9e9757ed80.png',
-    secondaryImage: 'https://res.cloudinary.com/daqyowoz/image/upload/v1791694644/file_000000001a44820786c35d551bd33087.png',
-    descriptionBn: 'বক্সি ফিটের আধুনিক স্কয়ার সিলুয়েট। স্বাধীন ও স্বাচ্ছন্দ্যময় চলাফেরার জন্য তরুণদের পছন্দের এক নম্বর ডিজাইন।',
-    fabricBn: '১০০% শ্বাসপ্রশ্বাসযোগ্য কটন',
-    gsm: 215,
-    colors: [
-      { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' },
-      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' }
+      { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
+      { nameBn: 'চারকোল গ্রে', nameEn: 'Charcoal Grey', hex: '#2C2C2C' }
     ],
     availableSizes: ['M', 'L', 'XL', 'XXL'],
-    fitBn: 'বক্সি কাট (Boxy Fit)',
-    tagBn: 'সিগনেচার লুক',
+    fitBn: 'স্মার্ট রেগুলার ফিট',
+    tagBn: 'অল ডে কমফোর্ট',
     isSampleData: false
   }
 ];

@@ -79,22 +79,36 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
               {/* Thumbnail selector if secondary image exists */}
               {product.secondaryImage && (
-                <div className="flex gap-2 mt-3">
+                <div className="flex gap-3 mt-3">
                   <button
                     onClick={() => setActiveImage(product.image)}
-                    className={`w-14 h-16 border overflow-hidden transition-all ${
-                      activeImage === product.image ? 'border-[#111111] ring-2 ring-[#C6A36A]' : 'border-[#CCCCCC] opacity-70'
+                    className={`flex flex-col items-center gap-1 border p-1 transition-all cursor-pointer ${
+                      activeImage === product.image ? 'border-[#111111] ring-2 ring-[#C6A36A] bg-[#FFFFFF]' : 'border-[#D5CDBD] opacity-75 hover:opacity-100'
                     }`}
                   >
-                    <img src={product.image} alt="Thumbnail 1" className="w-full h-full object-cover" />
+                    <div className="w-14 h-16 overflow-hidden">
+                      <img src={product.image} alt="Thumbnail 1" className="w-full h-full object-cover" />
+                    </div>
+                    <span className="text-[10px] font-bengali text-[#444444] font-medium">
+                      {product.image.includes('Portrait') || product.image.includes('Jibon_Jatra') || product.image.includes('Reflective') || product.image.includes('Sunlit')
+                        ? 'মডেলের ছবি'
+                        : 'টি-শার্ট ভিউ'}
+                    </span>
                   </button>
                   <button
                     onClick={() => setActiveImage(product.secondaryImage!)}
-                    className={`w-14 h-16 border overflow-hidden transition-all ${
-                      activeImage === product.secondaryImage ? 'border-[#111111] ring-2 ring-[#C6A36A]' : 'border-[#CCCCCC] opacity-70'
+                    className={`flex flex-col items-center gap-1 border p-1 transition-all cursor-pointer ${
+                      activeImage === product.secondaryImage ? 'border-[#111111] ring-2 ring-[#C6A36A] bg-[#FFFFFF]' : 'border-[#D5CDBD] opacity-75 hover:opacity-100'
                     }`}
                   >
-                    <img src={product.secondaryImage} alt="Thumbnail 2" className="w-full h-full object-cover" />
+                    <div className="w-14 h-16 overflow-hidden">
+                      <img src={product.secondaryImage} alt="Thumbnail 2" className="w-full h-full object-cover" />
+                    </div>
+                    <span className="text-[10px] font-bengali text-[#444444] font-medium">
+                      {product.secondaryImage.includes('Portrait') || product.secondaryImage.includes('Jibon_Jatra') || product.secondaryImage.includes('Reflective') || product.secondaryImage.includes('Sunlit')
+                        ? 'মডেলের ছবি'
+                        : 'টি-শার্ট ভিউ'}
+                    </span>
                   </button>
                 </div>
               )}

@@ -16,9 +16,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onOrderNow,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [activeImgKey, setActiveImgKey] = useState<'primary' | 'secondary'>('primary');
   const [selectedSize, setSelectedSize] = useState<SizeOption>(product.availableSizes[0] || 'L');
   const [selectedColor, setSelectedColor] = useState<ProductColor>(product.colors[0]);
   const [isAddedRecently, setIsAddedRecently] = useState(false);
+
+  const displayedImage = isHovered && product.secondaryImage
+    ? (activeImgKey === 'primary' ? product.secondaryImage : product.image)
+    : (activeImgKey === 'primary' ? product.image : (product.secondaryImage || product.image));
+
+  const isModelPhoto = displayedImage.includes('Portrait') ||
+    displayedImage.includes('Jibon_Jatra') ||
+    displayedImage.includes('Reflective') ||
+    displayedImage.includes('Sunlit');
 
   const handleAdd = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -48,7 +58,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         onClick={() => onQuickView(product)}
       >
         <img
-          src={isHovered && product.secondaryImage ? product.secondaryImage : product.image}
+          src={displayedImage}
           alt={product.nameBn}
           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
@@ -56,11 +66,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Top Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-          {product.tagBn && (
-            <span className="bg-[#111111] text-[#F3F0E8] text-[10px] sm:text-[11px] font-bengali font-medium px-2.5 py-0.5 border border-[#333333]">
-              {product.tagBn}
-            </span>
-          )}
+          <span className="bg-[#111111] text-[#F3F0E8] text-[10px] sm:text-[11px] font-bengali font-medium px-2.5 py-0.5 border border-[#333333]">
+            {isModelPhoto ? 'মডেলের ছবি (আমার ছবি)' : 'টি-শার্টের ছবি'}
+          </span>
           {product.originalPrice && (
             <span className="bg-[#C6A36A] text-[#111111] text-[10px] sm:text-[11px] font-english font-bold px-2 py-0.5">
               SALE
@@ -81,6 +89,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             {product.isSampleData ? 'SAMPLE' : 'ORIGINAL'}
           </span>
         </div>
+
+        {/* View Switcher Pill if product has both views */}
+        {product.secondaryImage && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveImgKey((prev) => (prev === 'primary' ? 'secondary' : 'primary'));
+            }}
+            className="absolute bottom-3 left-3 z-20 px-2 py-1 bg-[#111111]/85 hover:bg-[#111111] text-[#FFFFFF] text-[10px] font-bengali border border-white/20 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+            title="ছবি পরিবর্তন করুন (টি-শার্ট / মডেল)"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C6A36A] animate-pulse"></span>
+            <span>{activeImgKey === 'primary' ? 'অন্য ভিউ দেখুন' : 'মূল ভিউ'}</span>
+            <span className="text-[10px] text-[#C6A36A]">↺</span>
+          </button>
+        )}
 
         {/* Quick View Overlay Button */}
         <button
