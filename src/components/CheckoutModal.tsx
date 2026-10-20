@@ -148,8 +148,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     updateItems(updated);
   };
 
-  if (!isOpen) return null;
-
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
@@ -256,6 +254,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     msg += `অনুগ্রহ করে আমার অর্ডারটি কনফার্ম করুন। ধন্যবাদ!`;
     return msg;
   }, [fullName, phone, address, city, deliveryArea, paymentMethod, transactionId, notes, groupedProducts, totalPieces, subtotal, deliveryFee, grandTotal]);
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">

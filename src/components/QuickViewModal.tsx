@@ -21,19 +21,19 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   onInstantOrder,
   onOpenSizeGuide,
 }) => {
-  if (!product) return null;
-
-  const [selectedColor, setSelectedColor] = useState<ProductColor>(product.colors[0]);
-  const [activeImage, setActiveImage] = useState<string>(product.image);
+  const [selectedColor, setSelectedColor] = useState<ProductColor | null>(() => product ? product.colors[0] : null);
+  const [activeImage, setActiveImage] = useState<string>(() => product ? product.image : '');
   const [isAdded, setIsAdded] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
 
   // Size-wise quantities state: { S: 0, M: 1, L: 0, XL: 0, XXL: 0 }
   const [sizeQuantities, setSizeQuantities] = useState<Record<string, number>>(() => {
     const initial: Record<string, number> = {};
-    product.availableSizes.forEach((sz, idx) => {
-      initial[sz] = idx === 0 ? 1 : 0;
-    });
+    if (product) {
+      product.availableSizes.forEach((sz, idx) => {
+        initial[sz] = idx === 0 ? 1 : 0;
+      });
+    }
     return initial;
   });
 
@@ -51,6 +51,10 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
     }
   }, [product?.id]);
 
+  if (!product) return null;
+
+  const currentColor = selectedColor || product.colors[0];
+  const currentImage = activeImage || product.image;
   const totalPieces = Object.values(sizeQuantities).reduce((sum, q) => sum + (q || 0), 0);
   const totalAmount = totalPieces * product.price;
 
@@ -70,12 +74,12 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
     }
 
     if (onAddToCartMulti) {
-      onAddToCartMulti(product, selectedColor, sizeQuantities as Record<SizeOption, number>);
+      onAddToCartMulti(product, currentColor, sizeQuantities as Record<SizeOption, number>);
     } else if (onAddToCart) {
       // Fallback for first non-zero size
       const firstEntry = Object.entries(sizeQuantities).find(([_, q]) => q > 0);
       if (firstEntry) {
-        onAddToCart(product, firstEntry[0] as SizeOption, selectedColor, firstEntry[1]);
+        onAddToCart(product, firstEntry[0] as SizeOption, currentColor, firstEntry[1]);
       }
     }
 
@@ -93,21 +97,21 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
     }
 
     if (onInstantOrderMulti) {
-      onInstantOrderMulti(product, selectedColor, sizeQuantities as Record<SizeOption, number>);
+      onInstantOrderMulti(product, currentColor, sizeQuantities as Record<SizeOption, number>);
     } else if (onInstantOrder) {
       const firstEntry = Object.entries(sizeQuantities).find(([_, q]) => q > 0);
       if (firstEntry) {
-        onInstantOrder(product, firstEntry[0] as SizeOption, selectedColor, firstEntry[1]);
+        onInstantOrder(product, firstEntry[0] as SizeOption, currentColor, firstEntry[1]);
       }
     } else {
       handleAddToCartClick();
     }
   };
 
-  const isModelPhoto = activeImage.includes('Portrait') ||
-    activeImage.includes('Jibon_Jatra') ||
-    activeImage.includes('Reflective') ||
-    activeImage.includes('Sunlit');
+  const isModelPhoto = currentImage.includes('Portrait') ||
+    currentImage.includes('Jibon_Jatra') ||
+    currentImage.includes('Reflective') ||
+    currentImage.includes('Sunlit');
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -135,7 +139,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
             <div className="p-5 sm:p-6 bg-[#F7F5F0] flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#E8E2D5]">
               <div className="aspect-[3/4] overflow-hidden bg-[#EAE5DA] relative border border-[#DDD5C5]">
                 <img
-                  src={activeImage}
+                  src={currentImage}
                   alt={product.nameBn}
                   className={`w-full h-full ${isModelPhoto ? 'object-cover object-top' : 'object-cover object-center'} transition-all duration-300`}
                 />
@@ -151,7 +155,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                     type="button"
                     onClick={() => setActiveImage(product.image)}
                     className={`flex flex-col items-center gap-1 border p-1 transition-all cursor-pointer ${
-                      activeImage === product.image ? 'border-[#111111] ring-2 ring-[#C6A36A] bg-[#FFFFFF]' : 'border-[#D5CDBD] opacity-75 hover:opacity-100'
+                      currentImage === product.image ? 'border-[#111111] ring-2 ring-[#C6A36A] bg-[#FFFFFF]' : 'border-[#D5CDBD] opacity-75 hover:opacity-100'
                     }`}
                   >
                     <div className="w-14 h-16 overflow-hidden">
@@ -167,7 +171,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                     type="button"
                     onClick={() => setActiveImage(product.secondaryImage!)}
                     className={`flex flex-col items-center gap-1 border p-1 transition-all cursor-pointer ${
-                      activeImage === product.secondaryImage ? 'border-[#111111] ring-2 ring-[#C6A36A] bg-[#FFFFFF]' : 'border-[#D5CDBD] opacity-75 hover:opacity-100'
+                      currentImage === product.secondaryImage ? 'border-[#111111] ring-2 ring-[#C6A36A] bg-[#FFFFFF]' : 'border-[#D5CDBD] opacity-75 hover:opacity-100'
                     }`}
                   >
                     <div className="w-14 h-16 overflow-hidden">
@@ -247,7 +251,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 <div>
                   <div className="flex justify-between text-xs mb-1.5 font-bengali">
                     <span className="text-[#777777]">রং নির্বাচন করুন:</span>
-                    <span className="font-semibold text-[#111111]">{selectedColor.nameBn}</span>
+                    <span className="font-semibold text-[#111111]">{currentColor.nameBn}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {product.colors.map((c, i) => (
@@ -256,7 +260,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                         type="button"
                         onClick={() => setSelectedColor(c)}
                         className={`w-7 h-7 rounded-full border transition-all ${
-                          selectedColor.hex === c.hex ? 'ring-2 ring-[#C6A36A] scale-110' : 'border-[#CCCCCC]'
+                          currentColor.hex === c.hex ? 'ring-2 ring-[#C6A36A] scale-110' : 'border-[#CCCCCC]'
                         }`}
                         style={{ backgroundColor: c.hex }}
                         title={c.nameBn}
