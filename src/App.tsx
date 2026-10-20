@@ -40,7 +40,7 @@ export default function App() {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
-  const [policyType, setPolicyType] = useState<'privacy' | 'terms' | 'contact' | null>(null);
+  const [policyType, setPolicyType] = useState<'privacy' | 'terms' | 'contact' | 'returns' | null>(null);
 
   // --- Filter State ---
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('all');

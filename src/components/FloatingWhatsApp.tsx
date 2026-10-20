@@ -10,10 +10,10 @@ export const FloatingWhatsApp: React.FC = () => {
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${defaultMessage}`;
 
   return (
-    <div className="fixed bottom-6 left-6 z-40 flex flex-col items-start gap-3">
+    <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-30 flex flex-col items-start gap-2.5">
       {/* Mini popup card when opened or clicked */}
       {isOpen && (
-        <div className="bg-[#FFFFFF] text-[#111111] p-4 border border-[#D5CDBD] shadow-2xl max-w-xs animate-in slide-in-from-bottom-3 duration-200">
+        <div className="bg-[#FFFFFF] text-[#111111] p-4 border border-[#D5CDBD] shadow-2xl w-72 sm:w-80 animate-in slide-in-from-bottom-3 duration-200">
           <div className="flex items-start justify-between gap-3 pb-2 border-b border-[#EDE7DB]">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse"></span>
@@ -23,8 +23,8 @@ export const FloatingWhatsApp: React.FC = () => {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-[#888888] hover:text-[#111111] p-0.5 cursor-pointer"
-              aria-label="বন্ধ করুন"
+              className="text-[#888888] hover:text-[#111111] p-1 cursor-pointer"
+              aria-label="হোয়াটসঅ্যাপ পপআপ বন্ধ করুন"
             >
               <X className="w-4 h-4" />
             </button>
@@ -39,7 +39,7 @@ export const FloatingWhatsApp: React.FC = () => {
                 {displayPhone}
               </span>
               <span className="text-[10px] font-bengali font-semibold text-[#25D366] bg-[#FFFFFF] px-2 py-0.5 border border-[#25D366]/30">
-                অনলাইন
+                অনলাইন সাপোর্ট
               </span>
             </div>
             <a
@@ -47,6 +47,7 @@ export const FloatingWhatsApp: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="w-full mt-1 py-2.5 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-sm"
+              aria-label={`হোয়াটসঅ্যাপে চ্যাট শুরু করুন - ${displayPhone}`}
             >
               <MessageCircle className="w-4 h-4" />
               <span>হোয়াটসঅ্যাপে চ্যাট শুরু করুন</span>
@@ -55,21 +56,22 @@ export const FloatingWhatsApp: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Action Trigger Button */}
+      {/* Floating Action Trigger Buttons */}
       <div className="flex items-center gap-2">
+        {/* Full Pill for sm and up */}
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-2.5 px-4 py-3 bg-[#111111] hover:bg-[#222222] text-[#FFFFFF] border border-[#333333] shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
-          aria-label={`WhatsApp Helpline ${displayPhone}`}
+          className="hidden sm:flex group items-center gap-2.5 px-3.5 py-2.5 bg-[#111111] hover:bg-[#222222] text-[#FFFFFF] border border-[#333333] shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
+          aria-label={`TEEZAN WhatsApp হেল্পলাইন ${displayPhone}`}
           title="WhatsApp এ সরাসরি চ্যাট করুন"
         >
-          <div className="w-7 h-7 rounded-full bg-[#25D366] flex items-center justify-center text-[#FFFFFF] shadow-sm">
-            <MessageCircle className="w-4 h-4" />
+          <div className="w-6 h-6 rounded-full bg-[#25D366] flex items-center justify-center text-[#FFFFFF] shadow-sm">
+            <MessageCircle className="w-3.5 h-3.5" />
           </div>
           <div className="flex flex-col text-left">
-            <span className="text-[10px] font-english uppercase tracking-widest text-[#C6A36A] font-bold">
+            <span className="text-[9px] font-english uppercase tracking-widest text-[#C6A36A] font-bold">
               WHATSAPP
             </span>
             <span className="font-english text-xs font-bold text-[#FFFFFF]">
@@ -78,12 +80,24 @@ export const FloatingWhatsApp: React.FC = () => {
           </div>
         </a>
 
+        {/* Compact circular trigger for mobile */}
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="sm:hidden w-11 h-11 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] shadow-2xl flex items-center justify-center border-2 border-[#FFFFFF] transition-transform active:scale-95 cursor-pointer"
+          aria-label={`হোয়াটসঅ্যাপ হেল্পলাইন ${displayPhone}`}
+          title="WhatsApp এ চ্যাট করুন"
+        >
+          <MessageCircle className="w-5 h-5 fill-current" />
+        </a>
+
         {/* Info toggle helper */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-8 h-8 rounded-full bg-[#FFFFFF] border border-[#D5CDBD] text-[#111111] hover:bg-[#F3F0E8] flex items-center justify-center shadow-md text-xs font-bold cursor-pointer transition-colors"
-          title="বিস্তারিত দেখুন"
-          aria-label="হোয়াটসঅ্যাপ হেল্পলাইন তথ্য"
+          className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FFFFFF] border border-[#D5CDBD] text-[#111111] hover:bg-[#F3F0E8] flex items-center justify-center shadow-md text-xs font-bold cursor-pointer transition-colors"
+          title="হোয়াটসঅ্যাপ সহায়তা বিস্তারিত"
+          aria-label="হোয়াটসঅ্যাপ হেল্পলাইন তথ্য টগল করুন"
         >
           {isOpen ? '✕' : '?'}
         </button>

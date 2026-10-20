@@ -25,6 +25,11 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
 
+  const isModelPhoto = activeImage.includes('Portrait') ||
+    activeImage.includes('Jibon_Jatra') ||
+    activeImage.includes('Reflective') ||
+    activeImage.includes('Sunlit');
+
   const handleAddToCart = () => {
     onAddToCart(product, selectedSize, selectedColor, quantity);
     setIsAdded(true);
@@ -70,7 +75,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 <img
                   src={activeImage}
                   alt={product.nameBn}
-                  className="w-full h-full object-cover object-center transition-all duration-300"
+                  className={`w-full h-full ${isModelPhoto ? 'object-cover object-top' : 'object-cover object-center'} transition-all duration-300`}
                 />
                 <div className="absolute top-3 left-3 bg-[#111111] text-[#FFFFFF] text-[10px] font-english px-2 py-0.5">
                   TEEZAN EDITORIAL

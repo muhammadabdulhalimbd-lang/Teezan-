@@ -59,6 +59,7 @@ export interface CustomerDetails {
   city: string;
   deliveryArea: 'inside_dhaka' | 'outside_dhaka';
   paymentMethod: 'cod' | 'bkash';
+  transactionId?: string;
   notes?: string;
 }
 

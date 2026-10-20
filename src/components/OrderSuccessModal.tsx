@@ -30,7 +30,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
     `নাম: ${order.customer.fullName}\n` +
     `মোবাইল: ${order.customer.phone}\n` +
     `ঠিকানা: ${order.customer.address}, ${order.customer.city}\n` +
-    `পেমেন্ট: ${order.customer.paymentMethod === 'cod' ? 'ক্যাশ অন ডেলিভারি (COD)' : 'বিকাশ/নগদ'}\n\n` +
+    `পেমেন্ট: ${order.customer.paymentMethod === 'cod' ? 'ক্যাশ অন ডেলিভারি (COD)' : `বিকাশ/নগদ ম্যানুয়াল ${order.customer.transactionId ? `(TrxID: ${order.customer.transactionId})` : ''}`}\n\n` +
     `*অর্ডারকৃত পণ্যসমূহ:*\n` +
     order.items
       .map(
@@ -117,7 +117,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
                   <p className="font-bold text-[#111111]">ডেলিভারি ঠিকানা:</p>
                   <p>{order.customer.address}, {order.customer.city}</p>
                   <p className="text-[11px] text-[#C6A36A] font-semibold mt-0.5">
-                    পেমেন্ট: {order.customer.paymentMethod === 'cod' ? 'ক্যাশ অন ডেলিভারি' : 'বিকাশ / নগদ'}
+                    পেমেন্ট: {order.customer.paymentMethod === 'cod' ? 'ক্যাশ অন ডেলিভারি (COD)' : `বিকাশ / নগদ ম্যানুয়াল ${order.customer.transactionId ? `(TrxID: ${order.customer.transactionId})` : ''}`}
                   </p>
                 </div>
               </div>

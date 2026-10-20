@@ -21,9 +21,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [city, setCity] = useState('ঢাকা');
   const [deliveryArea, setDeliveryArea] = useState<'inside_dhaka' | 'outside_dhaka'>('inside_dhaka');
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'bkash'>('cod');
+  const [transactionId, setTransactionId] = useState('');
   const [notes, setNotes] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -34,19 +36,26 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!fullName.trim()) {
-      newErrors.fullName = 'আপনার সম্পূর্ণ নাম লিখুন';
+    if (!fullName.trim() || fullName.trim().length < 2) {
+      newErrors.fullName = 'আপনার সম্পূর্ণ নাম লিখুন (কমপক্ষে ২ অক্ষর)';
     }
 
     const cleanPhone = phone.trim().replace(/\D/g, '');
+    const validPrefixes = ['013', '014', '015', '016', '017', '018', '019'];
+    const hasValidPrefix = validPrefixes.some(p => cleanPhone.startsWith(p));
+
     if (!cleanPhone) {
       newErrors.phone = 'সঠিক মোবাইল নম্বর লিখুন';
-    } else if (cleanPhone.length !== 11 || !cleanPhone.startsWith('01')) {
-      newErrors.phone = '১১ ডিজিটের সঠিক নম্বর দিন (যেমন: 017XXXXXXXX)';
+    } else if (cleanPhone.length !== 11 || !hasValidPrefix) {
+      newErrors.phone = '১১ ডিজিটের সঠিক বাংলাদেশি নম্বর দিন (যেমন: 017XXXXXXXX)';
     }
 
     if (!address.trim() || address.trim().length < 8) {
-      newErrors.address = 'ডেলিভারির সম্পূর্ণ ঠিকানা লিখুন (বাসা, রোড, এলাকা/থানা)';
+      newErrors.address = 'ডেলিভারির সম্পূর্ণ ঠিকানা লিখুন (বাসা নং, রোড, এলাকা/থানা ও জেলা)';
+    }
+
+    if (items.length === 0) {
+      newErrors.cart = 'আপনার কার্ট খালি রয়েছে! অনুগ্রহ করে পণ্য যোগ করুন।';
     }
 
     setErrors(newErrors);
@@ -55,46 +64,53 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const handleSubmitOrder = (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
 
     if (!validate()) return;
     if (items.length === 0) return;
 
     setIsSubmitting(true);
 
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    const orderId = `TZ-${randomSuffix}`;
-
-    const newOrder: Order = {
-      id: orderId,
-      createdAt: new Date().toISOString(),
-      customer: {
-        fullName: fullName.trim(),
-        phone: phone.trim(),
-        address: address.trim(),
-        city: city.trim(),
-        deliveryArea,
-        paymentMethod,
-        notes: notes.trim(),
-      },
-      items,
-      subtotal,
-      deliveryFee,
-      total: grandTotal,
-      status: 'pending',
-    };
-
-    // Save order in localStorage
     try {
-      const existing = JSON.parse(localStorage.getItem('teezan_orders') || '[]');
-      localStorage.setItem('teezan_orders', JSON.stringify([newOrder, ...existing]));
-    } catch (e) {
-      console.error(e);
-    }
+      const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+      const orderId = `TZ-${randomSuffix}`;
 
-    setTimeout(() => {
+      const newOrder: Order = {
+        id: orderId,
+        createdAt: new Date().toISOString(),
+        customer: {
+          fullName: fullName.trim(),
+          phone: phone.trim(),
+          address: address.trim(),
+          city: city.trim(),
+          deliveryArea,
+          paymentMethod,
+          transactionId: paymentMethod === 'bkash' ? transactionId.trim() : undefined,
+          notes: notes.trim(),
+        },
+        items,
+        subtotal,
+        deliveryFee,
+        total: grandTotal,
+        status: 'pending',
+      };
+
+      // Save order in localStorage safely
+      try {
+        const existing = JSON.parse(localStorage.getItem('teezan_orders') || '[]');
+        localStorage.setItem('teezan_orders', JSON.stringify([newOrder, ...existing]));
+      } catch (storageErr) {
+        console.warn('LocalStorage save warning:', storageErr);
+      }
+
+      setTimeout(() => {
+        setIsSubmitting(false);
+        onOrderSuccess(newOrder);
+      }, 500);
+    } catch (err) {
       setIsSubmitting(false);
-      onOrderSuccess(newOrder);
-    }, 600);
+      setSubmitError('অর্ডার প্রসেস করতে সাময়িক সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন বা সরাসরি হোয়াটসঅ্যাপে যোগাযোগ করুন।');
+    }
   };
 
   return (
@@ -317,11 +333,29 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   </div>
 
                   {paymentMethod === 'bkash' && (
-                    <div className="p-3 bg-[#FFF5F7] border border-[#F5C2D0] text-xs font-bengali text-[#99153C] space-y-1">
-                      <p className="font-bold">বিকাশ/নগদ পেমেন্ট নির্দেশিকা:</p>
-                      <p>
-                        আমাদের অফিশিয়াল পার্সোনাল নম্বর <strong>01605529912</strong>-এ মোট <strong>৳{grandTotal}</strong> টাকা Send Money করুন। অর্ডার কনফার্ম করার পর আমাদের প্রতিনিধি আপনাকে কল করে ট্রানজেকশন আইডি নিশ্চিত করে নেবেন।
-                      </p>
+                    <div className="p-3.5 bg-[#FFF5F7] border border-[#F5C2D0] text-xs font-bengali text-[#99153C] space-y-2.5">
+                      <div className="space-y-1">
+                        <p className="font-bold flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-[#D12053]"></span>
+                          <span>ম্যানুয়াল বিকাশ / নগদ পেমেন্ট নির্দেশিকা (Send Money):</span>
+                        </p>
+                        <p className="text-[11px] leading-relaxed text-[#7A122E]">
+                          আমাদের অফিশিয়াল পার্সোনাল নম্বর <strong>01605529912</strong>-এ মোট <strong>৳{grandTotal}</strong> টাকা Send Money করুন। এটি কোনো স্বয়ংক্রিয় পেমেন্ট গেটওয়ে নয়; টাকা পাঠানোর পর ট্রানজেকশন আইডি প্রদান করুন অথবা অর্ডার প্লেস করার পর আমাদের প্রতিনিধি আপনাকে কল করে নিশ্চিত করে নেবেন। কোনো পেমেন্ট স্বয়ংক্রিয়ভাবে ভেরিফাইড হবে না।
+                        </p>
+                      </div>
+
+                      <div className="space-y-1 pt-1 border-t border-[#F5C2D0]/60">
+                        <label className="block text-[11px] font-bold text-[#7A122E]">
+                          ট্রানজেকশন আইডি (TrxID) বা প্রেরক নম্বরের শেষ ৪ ডিজিট:
+                        </label>
+                        <input
+                          type="text"
+                          value={transactionId}
+                          onChange={(e) => setTransactionId(e.target.value)}
+                          placeholder="যেমন: BL9X1234 বা 9912"
+                          className="w-full px-3 py-2 bg-[#FFFFFF] border border-[#E0AAB7] text-xs font-english text-[#111111] focus:outline-none focus:border-[#D12053]"
+                        />
+                      </div>
                     </div>
                   )}
                 </div>
@@ -339,6 +373,20 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#DDD5C5] text-xs font-bengali text-[#111111] focus:outline-none focus:bg-[#FFFFFF]"
                   />
                 </div>
+
+                {errors.cart && (
+                  <div className="p-3 bg-[#FFEBEE] border border-[#FFCDD2] text-xs text-[#D32F2F] font-bengali flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{errors.cart}</span>
+                  </div>
+                )}
+
+                {submitError && (
+                  <div className="p-3 bg-[#FFEBEE] border border-[#FFCDD2] text-xs text-[#D32F2F] font-bengali flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{submitError}</span>
+                  </div>
+                )}
 
               </div>
 
@@ -407,8 +455,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   </div>
                 </div>
 
-                {/* Submit Button */}
-                <div className="pt-3">
+                {/* Submit Buttons */}
+                <div className="pt-3 space-y-2.5">
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -423,6 +471,27 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       </>
                     )}
                   </button>
+
+                  {/* Direct WhatsApp Order Submission */}
+                  <a
+                    href={`https://wa.me/8801605529912?text=${encodeURIComponent(
+                      `*TEEZAN নতুন সরাসরি অর্ডার*\n\n` +
+                      `নাম: ${fullName.trim() || 'গ্রাহক'}\n` +
+                      `ফোন: ${phone.trim() || 'প্রযোজ্য নয়'}\n` +
+                      `ঠিকানা: ${address.trim() || 'প্রযোজ্য নয়'}, ${city}\n` +
+                      `ডেলিভারি এলাকা: ${deliveryArea === 'inside_dhaka' ? 'ঢাকার ভেতরে (৳৬০)' : 'ঢাকার বাইরে (৳১২০)'}\n` +
+                      `পেমেন্ট: ${paymentMethod === 'cod' ? 'ক্যাশ অন ডেলিভারি' : `বিকাশ/নগদ ম্যানুয়াল (TrxID: ${transactionId || 'উত্তরে জানাব'})`}\n\n` +
+                      `*অর্ডারকৃত পণ্যসমূহ:*\n` +
+                      items.map((it, i) => `${i + 1}. ${it.product.nameBn} [Size: ${it.selectedSize}, Color: ${it.selectedColor.nameBn}] x ${it.quantity} = ৳${it.product.price * it.quantity}`).join('\n') +
+                      `\n\nডেলিভারি চার্জ: ৳${deliveryFee}\n*সর্বমোট প্রদেয়: ৳${grandTotal}*\n\nঅনুগ্রহ করে অর্ডারটি নিশ্চিত করুন।`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-3 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-xs"
+                    title="হোয়াটসঅ্যাপে সরাসরি অর্ডার পাঠান"
+                  >
+                    <span>হোয়াটসঅ্যাপে দ্রুত অর্ডার পাঠান (01605529912)</span>
+                  </a>
                 </div>
 
                 {/* Guarantee Notes */}

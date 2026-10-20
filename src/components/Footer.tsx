@@ -3,7 +3,7 @@ import { ArrowUp, Facebook, ExternalLink } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (sectionId: string, categoryFilter?: string) => void;
-  onOpenPolicy: (type: 'privacy' | 'terms' | 'contact') => void;
+  onOpenPolicy: (type: 'privacy' | 'terms' | 'contact' | 'returns') => void;
   onOpenSizeGuide: () => void;
 }
 
@@ -149,6 +149,14 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
+                  onClick={() => onOpenPolicy('returns')}
+                  className="hover:text-[#FFFFFF] hover:underline cursor-pointer transition-colors"
+                >
+                  রিটার্ন ও এক্সচেঞ্জ পলিসি
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => onOpenPolicy('contact')}
                   className="hover:text-[#FFFFFF] hover:underline cursor-pointer transition-colors"
                 >
@@ -175,7 +183,7 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           {/* Official Contact & Social Media (Cols 10-12) */}
-          <div className="lg:col-span-3 space-y-3.5 bg-[#181818] p-5 border border-[#2B2B2B]">
+          <div id="contact" className="lg:col-span-3 space-y-3.5 bg-[#181818] p-5 border border-[#2B2B2B] scroll-mt-24">
             <h4 className="font-english text-xs tracking-[0.2em] uppercase text-[#C6A36A] font-bold">
               OFFICIAL CONTACT
             </h4>

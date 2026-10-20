@@ -63,11 +63,11 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
 
   return (
     <section id="hero" className="relative overflow-hidden bg-[#F3F0E8] border-b border-[#E0D9CB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12 lg:py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Text & Editorial Typography */}
-          <div className="lg:col-span-6 space-y-6 sm:space-y-7">
+          <div className="lg:col-span-6 space-y-5 sm:space-y-6">
             
             {/* Small Label */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#EAE4D6] border border-[#D5CDBD] text-[#111111]">
@@ -83,7 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
 
             {/* Main Heading in Hind Siliguri */}
             <div className="space-y-2">
-              <h1 className="font-bengali text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#111111] leading-[1.18]">
+              <h1 className="font-bengali text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#111111] leading-[1.2]">
                 আপনার স্টাইলেই <br className="hidden sm:inline" />
                 <span className="relative inline-block text-[#111111]">
                   আপনার পরিচয়
@@ -93,12 +93,12 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
             </div>
 
             {/* Supporting Text */}
-            <p className="font-bengali text-lg sm:text-xl text-[#3A3A3A] max-w-xl font-normal leading-relaxed">
+            <p className="font-bengali text-base sm:text-lg lg:text-xl text-[#3A3A3A] max-w-xl font-normal leading-relaxed">
               আধুনিক স্ট্রিটওয়্যার, মিনিমাল ডিজাইন আর নিজের মতো করে নিজেকে প্রকাশ করার গল্প। প্রিমিয়াম কম্বড কটন ফ্যাব্রিকে তৈরি আত্মবিশ্বাসের পোশাক।
             </p>
 
             {/* Tagline Badge */}
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex items-center gap-3 pt-0.5">
               <div className="h-[1px] w-8 bg-[#C6A36A]"></div>
               <p className="font-english text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#C6A36A] uppercase">
                 Wear Your Identity.
@@ -106,10 +106,10 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
               <button
                 onClick={onExploreClick}
-                className="group px-7 py-4 rounded-none bg-[#111111] text-[#FFFFFF] font-bengali text-base font-semibold hover:bg-[#262626] transition-all flex items-center gap-3 shadow-md hover:shadow-lg cursor-pointer"
+                className="group px-6 sm:px-7 py-3.5 sm:py-4 rounded-none bg-[#111111] text-[#FFFFFF] font-bengali text-sm sm:text-base font-semibold hover:bg-[#262626] transition-all flex items-center gap-2.5 sm:gap-3 shadow-md hover:shadow-lg cursor-pointer"
               >
                 <span>কালেকশন দেখুন</span>
                 <ArrowDownRight className="w-4 h-4 text-[#C6A36A] group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform" />
@@ -117,24 +117,24 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onAboutClick }) => {
 
               <button
                 onClick={onAboutClick}
-                className="px-7 py-4 rounded-none bg-transparent border border-[#111111] text-[#111111] font-bengali text-base font-semibold hover:bg-[#111111] hover:text-[#FFFFFF] transition-all cursor-pointer"
+                className="px-6 sm:px-7 py-3.5 sm:py-4 rounded-none bg-transparent border border-[#111111] text-[#111111] font-bengali text-sm sm:text-base font-semibold hover:bg-[#111111] hover:text-[#FFFFFF] transition-all cursor-pointer"
               >
                 আমাদের সম্পর্কে
               </button>
             </div>
 
             {/* Key Quality Pillars */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#DED7C8]">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-[#DED7C8]">
               <div>
-                <p className="font-english font-bold text-lg sm:text-xl text-[#111111]">100%</p>
+                <p className="font-english font-bold text-base sm:text-lg lg:text-xl text-[#111111]">100%</p>
                 <p className="font-bengali text-xs sm:text-sm text-[#555555]">কম্বড কটন ফেব্রিক</p>
               </div>
               <div>
-                <p className="font-english font-bold text-lg sm:text-xl text-[#111111]">220+ GSM</p>
+                <p className="font-english font-bold text-base sm:text-lg lg:text-xl text-[#111111]">220+ GSM</p>
                 <p className="font-bengali text-xs sm:text-sm text-[#555555]">হেভিওয়েট স্ট্রাকচার্ড</p>
               </div>
               <div>
-                <p className="font-english font-bold text-lg sm:text-xl text-[#111111]">DROP</p>
+                <p className="font-english font-bold text-base sm:text-lg lg:text-xl text-[#111111]">DROP</p>
                 <p className="font-bengali text-xs sm:text-sm text-[#555555]">ড্রপ শোল্ডার কাট</p>
               </div>
             </div>

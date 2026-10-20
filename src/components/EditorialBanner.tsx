@@ -8,14 +8,16 @@ interface EditorialBannerProps {
 export const EditorialBanner: React.FC<EditorialBannerProps> = ({ onExplore }) => {
   return (
     <section className="relative overflow-hidden bg-[#111111] text-[#FFFFFF] py-20 md:py-28 border-b border-[#222222]">
-      {/* Background Subtle Streetwear Imagery Overlay */}
-      <div className="absolute inset-0 z-0 opacity-25 mix-blend-luminosity">
+      {/* High-Fidelity Editorial Promo Banner Image (User Provided Photo) */}
+      <div className="absolute inset-0 z-0">
         <img
-          src="https://res.cloudinary.com/daqyowoz/image/upload/v1791694662/file_0000000007948211ab656ac6f770e3eb.png"
-          alt="TEEZAN Editorial Streetwear Mood"
-          className="w-full h-full object-cover object-center"
+          src="/assets/aistudio/Orange_and_Dark_Green_Minimal_Photo_Fashion_Promo_Facebook_Cover__4__b6fa7020.jpg"
+          alt="TEEZAN Fashion Store Online - Wear Your Identity"
+          className="w-full h-full object-cover object-center sm:object-right md:object-center brightness-[0.80] contrast-[1.05]"
           loading="lazy"
         />
+        {/* Balanced Dark Vignette & Gradient for Sharp Bengali Typography while keeping model & branding visible */}
+        <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-[#111111]/92 via-[#111111]/75 to-[#111111]/45 sm:to-black/35" />
       </div>
 
       {/* Subtle Gold Ambient Gradients */}
@@ -25,7 +27,7 @@ export const EditorialBanner: React.FC<EditorialBannerProps> = ({ onExplore }) =
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         
         {/* Label */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 border border-[#333333] bg-[#1A1A1A]/90 text-[#C6A36A]">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 border border-[#333333] bg-[#1A1A1A]/90 text-[#C6A36A] backdrop-blur-xs">
           <Sparkles className="w-3.5 h-3.5" />
           <span className="font-english text-xs uppercase font-bold tracking-[0.25em]">
             LIMITED EDITION &bull; DROP 01
@@ -33,18 +35,18 @@ export const EditorialBanner: React.FC<EditorialBannerProps> = ({ onExplore }) =
         </div>
 
         {/* Heading */}
-        <h2 className="font-bengali text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#FFFFFF] leading-tight max-w-3xl mx-auto">
+        <h2 className="font-bengali text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#FFFFFF] leading-tight max-w-3xl mx-auto drop-shadow-md">
           নিজের স্টাইলকে <span className="text-[#C6A36A]">নতুনভাবে</span> প্রকাশ করুন।
         </h2>
 
         {/* Supporting Copy */}
-        <p className="font-bengali text-base sm:text-xl text-[#D0CBC0] max-w-2xl mx-auto font-light leading-relaxed">
+        <p className="font-bengali text-base sm:text-xl text-[#F3F0E8] max-w-2xl mx-auto font-light leading-relaxed drop-shadow-sm">
           TEEZAN-এর কালেকশন থেকে খুঁজে নিন আপনার নিজস্ব লুক। প্রিমিয়াম ফ্যাব্রিক, আধুনিক কাট এবং স্বাতন্ত্র্যবোধ।
         </p>
 
         {/* Tagline pill */}
         <div className="pt-2">
-          <span className="font-english text-xs sm:text-sm tracking-[0.3em] uppercase text-[#A89675] font-semibold">
+          <span className="font-english text-xs sm:text-sm tracking-[0.3em] uppercase text-[#C6A36A] font-semibold">
             &mdash; WEAR YOUR IDENTITY &mdash;
           </span>
         </div>

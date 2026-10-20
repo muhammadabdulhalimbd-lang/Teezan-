@@ -22,15 +22,15 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 }) => {
   const [showAllProducts, setShowAllProducts] = useState(false);
 
-  // New arrivals: all items marked isNew
-  const newArrivals = products.filter((p) => p.isNew);
+  // Premiere drops (First line: 4 distinct products)
+  const newArrivals = products.slice(0, 4);
 
-  // Best sellers: all items marked isBestSeller
-  const bestSellers = products.filter((p) => p.isBestSeller);
+  // Signature selection (Second line: next distinct products, zero duplicates)
+  const bestSellers = products.slice(4, 8);
 
   // Filtered list when category filter is active or show all
   const filteredProducts = activeFilter === 'all'
-    ? products
+    ? (showAllProducts ? products : products)
     : activeFilter === 'new-arrivals'
     ? products.filter((p) => p.isNew)
     : products.filter((p) => p.category === activeFilter);
@@ -99,10 +99,47 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             ))}
           </div>
         </section>
+      ) : showAllProducts ? (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E2DBD0]">
+            <div className="space-y-1">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#C6A36A] font-english font-bold">
+                COMPLETE COLLECTION
+              </span>
+              <h2 className="font-bengali text-3xl sm:text-4xl font-bold text-[#111111]">
+                TEEZAN সমস্ত কালেকশন ({products.length}টি পণ্য)
+              </h2>
+              <p className="font-bengali text-sm text-[#555555]">
+                আমাদের প্রতিটি প্রিমিয়াম টি-শার্ট ও স্ট্রিটওয়্যার ড্রপ একনজরে দেখে নিন।
+              </p>
+            </div>
+            <div className="mt-4 sm:mt-0">
+              <button
+                onClick={() => setShowAllProducts(false)}
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bengali font-semibold text-[#111111] hover:text-[#C6A36A] transition-colors border-b-2 border-[#111111] hover:border-[#C6A36A] pb-0.5 cursor-pointer"
+              >
+                <span>ফিচার্ড ভিউতে ফিরে যান</span>
+                <span>&larr;</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {products.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                onQuickView={onQuickView}
+                onAddToCart={onAddToCart}
+                onOrderNow={onOrderNow}
+              />
+            ))}
+          </div>
+        </section>
       ) : (
         <>
           {/* ========================================================================= */}
-          {/* SECTION E: NEW ARRIVALS (নতুন এসেছে) */}
+          {/* SECTION E: NEW ARRIVALS (নতুন এসেছে - ৪টি অনন্য ড্রপ) */}
           {/* ========================================================================= */}
           <section id="new-arrivals" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E2DBD0]">
@@ -121,10 +158,10 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
               <div className="mt-4 sm:mt-0">
                 <button
-                  onClick={() => setShowAllProducts(!showAllProducts)}
+                  onClick={() => setShowAllProducts(true)}
                   className="inline-flex items-center gap-2 text-xs sm:text-sm font-bengali font-semibold text-[#111111] hover:text-[#C6A36A] transition-colors border-b-2 border-[#111111] hover:border-[#C6A36A] pb-0.5 cursor-pointer"
                 >
-                  <span>{showAllProducts ? 'সংক্ষিপ্ত ভিউ' : 'সব পণ্য দেখুন'}</span>
+                  <span>সব পণ্য দেখুন ({products.length}টি)</span>
                   <span>&rarr;</span>
                 </button>
               </div>
@@ -146,7 +183,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             {/* "সব পণ্য দেখুন" Secondary Centered Button */}
             <div className="mt-12 text-center">
               <button
-                onClick={() => onFilterChange('all')}
+                onClick={() => setShowAllProducts(true)}
                 className="px-8 py-3.5 bg-transparent border-2 border-[#111111] text-[#111111] font-bengali text-sm font-semibold hover:bg-[#111111] hover:text-[#FFFFFF] transition-all cursor-pointer"
               >
                 সব পণ্য দেখুন ({products.length}টি কালেকশন)
@@ -155,7 +192,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           </section>
 
           {/* ========================================================================= */}
-          {/* SECTION F: BEST SELLERS (জনপ্রিয় কালেকশন) */}
+          {/* SECTION F: BEST SELLERS (জনপ্রিয় কালেকশন - ৪টি স্বতন্ত্র ড্রপ) */}
           {/* ========================================================================= */}
           <section id="best-sellers" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E2DBD0]">
@@ -169,7 +206,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 </h2>
                 <div className="flex items-center gap-2 pt-0.5 text-xs text-[#666666] font-bengali">
                   <Info className="w-3.5 h-3.5 text-[#C6A36A]" />
-                  <span>TEEZAN ব্র্যান্ডের নির্বাচিত সিগনেচার কালেকশন।</span>
+                  <span>TEEZAN ব্র্যান্ডের নির্বাচিত সিগনেচার কালেকশন (কোনো ডুপ্লিকেট ছাড়া)।</span>
                 </div>
               </div>
             </div>

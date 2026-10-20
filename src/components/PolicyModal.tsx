@@ -1,8 +1,8 @@
 import React from 'react';
-import { X, Shield, FileText, Mail, Phone } from 'lucide-react';
+import { X, Shield, FileText, Mail, RotateCcw } from 'lucide-react';
 
 interface PolicyModalProps {
-  type: 'privacy' | 'terms' | 'contact' | null;
+  type: 'privacy' | 'terms' | 'contact' | 'returns' | null;
   onClose: () => void;
 }
 
@@ -31,7 +31,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ type, onClose }) => {
             </p>
           </div>
           <div className="p-3 bg-[#FAF8F3] border border-[#DDD5C5] text-xs text-[#666666]">
-            <strong>ডেভেলপমেন্ট স্টেজ নোট:</strong> অফিসিয়াল কমার্শিয়াল লঞ্চের সাথে সাথে আইনি পরামর্শ অনুযায়ী বিস্তারিত প্রাইভেসি পলিসি ডকুমেন্টস প্রকাশ করা হবে।
+            <strong>প্রতিষ্ঠাতা তথ্য:</strong> TEEZAN এর প্রতিষ্ঠাতা <strong>Abdul Halim</strong>।
           </div>
         </div>
       ),
@@ -58,6 +58,38 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ type, onClose }) => {
           </div>
           <div className="p-3 bg-[#FAF8F3] border border-[#DDD5C5] text-xs text-[#666666]">
             <strong>প্রতিষ্ঠাতা তথ্য:</strong> TEEZAN এর প্রতিষ্ঠাতা <strong>Abdul Halim</strong>।
+          </div>
+        </div>
+      ),
+    },
+    returns: {
+      title: 'রিটার্ন ও এক্সচেঞ্জ পলিসি (Return & Exchange)',
+      icon: RotateCcw,
+      body: (
+        <div className="space-y-4 font-bengali text-sm text-[#444444] leading-relaxed">
+          <p>
+            TEEZAN গ্রাহকদের কেনাকাটার পূর্ণ সন্তুষ্টি নিশ্চিত করতে সহজ রিটার্ন ও এক্সচেঞ্জ সুবিধা প্রদান করে:
+          </p>
+          <div className="space-y-2">
+            <h4 className="font-bold text-[#111111]">১. সাইজ পরিবর্তন (৭ দিনের মধ্যে):</h4>
+            <p>
+              সাইজ মিসম্যাচ হলে পণ্য হাতে পাওয়ার ৭ দিনের মধ্যে সাইজ পরিবর্তনের অনুরোধ করতে পারবেন। টি-শার্টটি অব্যবহৃত, অপ্রক্ষালিত এবং মূল ট্যাগসহ থাকতে হবে।
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-bold text-[#111111]">২. ডিফেক্ট বা ত্রুটিপূর্ণ পণ্য:</h4>
+            <p>
+              ফ্যাব্রিক বা প্রিন্টে কোনো ত্রুটি থাকলে অথবা ভুল পণ্য প্রেরিত হলে TEEZAN নিজস্ব খরচে দ্রুততম সময়ে সঠিক পণ্য এক্সচেঞ্জ করে দেবে।
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-bold text-[#111111]">৩. পার্সেল যাচাই করার সুযোগ:</h4>
+            <p>
+              ক্যাশ অন ডেলিভারিতে ডেলিভারিম্যানের সামনে পার্সেলটি দেখে বুঝে নেওয়ার সুযোগ রয়েছে।
+            </p>
+          </div>
+          <div className="p-3 bg-[#FAF8F3] border border-[#DDD5C5] text-xs text-[#666666]">
+            <strong>সহায়তার জন্য যোগাযোগ:</strong> রিটার্ন বা এক্সচেঞ্জের যেকোনো প্রয়োজনে অর্ডার নম্বরসহ আমাদের হেল্পলাইন <strong>01605529912</strong> (WhatsApp)-এ যোগাযোগ করুন।
           </div>
         </div>
       ),
