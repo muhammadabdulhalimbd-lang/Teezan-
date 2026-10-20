@@ -33,7 +33,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'চারকোল গ্রে', nameEn: 'Charcoal Grey', hex: '#2C2C2C' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'রিল্যাক্সড ড্রপ-শোল্ডার ফিট',
     tagBn: 'টি-শার্ট ভিউ 🔥',
     isSampleData: false
@@ -57,7 +57,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'ক্লাউড হোয়াইট', nameEn: 'Cloud White', hex: '#FFFFFF' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'বক্সি ওভারসাইজড কাট',
     tagBn: 'আমার ছবি (মডেল) 🔥',
     isSampleData: false
@@ -81,7 +81,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড',
     tagBn: 'টি-শার্ট ভিউ 🔥',
     isSampleData: false
@@ -105,7 +105,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
     tagBn: 'আমার ছবি (মডেল) 🔥',
     isSampleData: false
@@ -133,7 +133,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'চারকোল গ্রে', nameEn: 'Charcoal Grey', hex: '#2C2C2C' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'রিলাক্সড বক্সি ফিট',
     tagBn: 'টি-শার্ট ভিউ 🔥',
     isSampleData: false
@@ -157,7 +157,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'ওয়ার্ম অফ-হোয়াইট', nameEn: 'Warm Off-White', hex: '#F3F0E8' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'ড্রপ-শোল্ডার ওভারসাইজড ফিট',
     tagBn: 'আমার ছবি (মডেল) 🔥',
     isSampleData: false
@@ -181,7 +181,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'অ্যাংলার গ্রে', nameEn: 'Angler Grey', hex: '#737373' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'ওয়াইড ড্রপ-শোল্ডার',
     tagBn: 'টি-শার্ট ভিউ 🔥',
     isSampleData: false
@@ -205,7 +205,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'অলিভ গ্রিন', nameEn: 'Olive Green', hex: '#4A5340' },
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' }
     ],
-    availableSizes: ['M', 'L', 'XL'],
+    availableSizes: ['S', 'M', 'L', 'XL'],
     fitBn: 'স্ট্রাকচার্ড রেগুলার কাট',
     tagBn: 'টি-শার্ট ভিউ 🔥',
     isSampleData: false
@@ -234,7 +234,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'স্যান্ডস্টোন বেইজ', nameEn: 'Sandstone Beige', hex: '#D2BBA0' },
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' }
     ],
-    availableSizes: ['M', 'L', 'XL'],
+    availableSizes: ['S', 'M', 'L', 'XL'],
     fitBn: 'ড্রপ-শোল্ডার রিল্যাক্সড ফিট',
     tagBn: 'মিনিমালিস্ট',
     isSampleData: false
@@ -258,7 +258,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
       { nameBn: 'জেট ব্ল্যাক', nameEn: 'Jet Black', hex: '#111111' },
       { nameBn: 'চারকোল গ্রে', nameEn: 'Charcoal Grey', hex: '#2C2C2C' }
     ],
-    availableSizes: ['M', 'L', 'XL', 'XXL'],
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
     fitBn: 'স্মার্ট রেগুলার ফিট',
     tagBn: 'অল ডে কমফোর্ট',
     isSampleData: false
@@ -329,6 +329,7 @@ export const FAQ_DATA: FAQItem[] = [
 ];
 
 export const SIZE_CHART = [
+  { size: 'S', chestInches: '36 - 38', chestCm: '91 - 96', lengthInches: '27', sleeveInches: '8.0' },
   { size: 'M', chestInches: '38 - 40', chestCm: '96 - 101', lengthInches: '28', sleeveInches: '8.5' },
   { size: 'L', chestInches: '41 - 43', chestCm: '104 - 109', lengthInches: '29', sleeveInches: '9.0' },
   { size: 'XL', chestInches: '44 - 46', chestCm: '111 - 116', lengthInches: '30', sleeveInches: '9.5' },

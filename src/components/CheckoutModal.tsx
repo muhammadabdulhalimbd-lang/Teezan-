@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { X, Check, Truck, ShieldCheck, Phone, MapPin, User, ArrowRight, AlertCircle, CreditCard, Banknote } from 'lucide-react';
-import { CartItem, CustomerDetails, Order } from '../types';
+import React, { useState, useEffect, useMemo } from 'react';
+import { X, Truck, ShieldCheck, Phone, MapPin, User, ArrowRight, AlertCircle, Banknote, Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
+import { CartItem, CustomerDetails, Order, SizeOption, ProductColor } from '../types';
 
 interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   items: CartItem[];
   onOrderSuccess: (order: Order) => void;
+  onItemsChange?: (updatedItems: CartItem[]) => void;
 }
 
 export const CheckoutModal: React.FC<CheckoutModalProps> = ({
@@ -14,7 +15,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   onClose,
   items,
   onOrderSuccess,
+  onItemsChange,
 }) => {
+  // Local editable checkout items initialized from props
+  const [checkoutItems, setCheckoutItems] = useState<CartItem[]>(items);
+
+  // Form Fields
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -27,11 +33,122 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  if (!isOpen) return null;
+  // Sync with incoming items when modal opens or items prop updates
+  useEffect(() => {
+    if (isOpen) {
+      setCheckoutItems(items);
+      setErrors({});
+      setSubmitError(null);
+    }
+  }, [isOpen, items]);
 
-  const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  // Notify parent of items change if needed
+  const updateItems = (newItems: CartItem[]) => {
+    setCheckoutItems(newItems);
+    if (onItemsChange) {
+      onItemsChange(newItems);
+    }
+  };
+
+  // Group items by product & color to allow intuitive size-wise quantity adjustments
+  const groupedProducts = useMemo(() => {
+    const groups: {
+      productId: string;
+      colorHex: string;
+      product: CartItem['product'];
+      color: ProductColor;
+      variants: {
+        id: string;
+        size: SizeOption;
+        quantity: number;
+      }[];
+      totalQuantity: number;
+      subtotal: number;
+    }[] = [];
+
+    checkoutItems.forEach((item) => {
+      const groupKey = `${item.product.id}_${item.selectedColor.hex}`;
+      let group = groups.find((g) => `${g.productId}_${g.colorHex}` === groupKey);
+
+      if (!group) {
+        group = {
+          productId: item.product.id,
+          colorHex: item.selectedColor.hex,
+          product: item.product,
+          color: item.selectedColor,
+          variants: [],
+          totalQuantity: 0,
+          subtotal: 0,
+        };
+        groups.push(group);
+      }
+
+      group.variants.push({
+        id: item.id,
+        size: item.selectedSize,
+        quantity: item.quantity,
+      });
+      group.totalQuantity += item.quantity;
+      group.subtotal += item.product.price * item.quantity;
+    });
+
+    return groups;
+  }, [checkoutItems]);
+
+  const totalPieces = checkoutItems.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = checkoutItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const deliveryFee = deliveryArea === 'inside_dhaka' ? 60 : 120;
   const grandTotal = subtotal + deliveryFee;
+
+  // Handle size-wise quantity increment/decrement
+  const handleUpdateSizeQty = (productId: string, colorHex: string, size: SizeOption, delta: number) => {
+    const itemKey = `${productId}-${size}-${colorHex}`;
+    const existingIndex = checkoutItems.findIndex(
+      (it) => it.product.id === productId && it.selectedColor.hex === colorHex && it.selectedSize === size
+    );
+
+    if (existingIndex >= 0) {
+      const currentQty = checkoutItems[existingIndex].quantity;
+      const nextQty = currentQty + delta;
+
+      if (nextQty <= 0) {
+        // Remove this size variant
+        const updated = checkoutItems.filter((_, idx) => idx !== existingIndex);
+        updateItems(updated);
+      } else {
+        // Update quantity
+        const updated = [...checkoutItems];
+        updated[existingIndex] = {
+          ...updated[existingIndex],
+          quantity: nextQty,
+        };
+        updateItems(updated);
+      }
+    } else if (delta > 0) {
+      // Add new size variant for this product
+      const targetGroup = groupedProducts.find((g) => g.productId === productId && g.colorHex === colorHex);
+      if (targetGroup) {
+        const newItem: CartItem = {
+          id: itemKey,
+          product: targetGroup.product,
+          selectedSize: size,
+          selectedColor: targetGroup.color,
+          quantity: delta,
+        };
+        updateItems([...checkoutItems, newItem]);
+      }
+    }
+  };
+
+  // Remove all size variants of a product design
+  const handleRemoveProduct = (productId: string, colorHex: string) => {
+    const updated = checkoutItems.filter(
+      (it) => !(it.product.id === productId && it.selectedColor.hex === colorHex)
+    );
+    updateItems(updated);
+  };
+
+  if (!isOpen) return null;
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -42,7 +159,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
     const cleanPhone = phone.trim().replace(/\D/g, '');
     const validPrefixes = ['013', '014', '015', '016', '017', '018', '019'];
-    const hasValidPrefix = validPrefixes.some(p => cleanPhone.startsWith(p));
+    const hasValidPrefix = validPrefixes.some((p) => cleanPhone.startsWith(p));
 
     if (!cleanPhone) {
       newErrors.phone = 'সঠিক মোবাইল নম্বর লিখুন';
@@ -54,8 +171,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       newErrors.address = 'ডেলিভারির সম্পূর্ণ ঠিকানা লিখুন (বাসা নং, রোড, এলাকা/থানা ও জেলা)';
     }
 
-    if (items.length === 0) {
-      newErrors.cart = 'আপনার কার্ট খালি রয়েছে! অনুগ্রহ করে পণ্য যোগ করুন।';
+    if (checkoutItems.length === 0 || totalPieces === 0) {
+      newErrors.cart = 'আপনার অর্ডার তালিকায় কোনো পণ্য নেই। অনুগ্রহ করে পণ্য ও সাইজ নির্বাচন করুন।';
     }
 
     setErrors(newErrors);
@@ -66,8 +183,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     e.preventDefault();
     setSubmitError(null);
 
+    if (isSubmitting) return; // Prevent duplicate submission
     if (!validate()) return;
-    if (items.length === 0) return;
+    if (checkoutItems.length === 0 || totalPieces === 0) return;
 
     setIsSubmitting(true);
 
@@ -88,7 +206,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           transactionId: paymentMethod === 'bkash' ? transactionId.trim() : undefined,
           notes: notes.trim(),
         },
-        items,
+        items: checkoutItems,
         subtotal,
         deliveryFee,
         total: grandTotal,
@@ -113,6 +231,32 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     }
   };
 
+  // WhatsApp order text builder with exact size quantities breakdown
+  const whatsappOrderMessage = useMemo(() => {
+    let msg = `*TEEZAN নতুন সরাসরি অর্ডার*\n\n`;
+    msg += `গ্রাহকের নাম: ${fullName.trim() || 'প্রযোজ্য নয়'}\n`;
+    msg += `মোবাইল নম্বর: ${phone.trim() || 'প্রযোজ্য নয়'}\n`;
+    msg += `ডেলিভারির ঠিকানা: ${address.trim() || 'প্রযোজ্য নয়'}, ${city}\n`;
+    msg += `ডেলিভারি এলাকা: ${deliveryArea === 'inside_dhaka' ? 'ঢাকার ভেতরে (৳৬০)' : 'ঢাকার বাইরে (৳১২০)'}\n`;
+    msg += `পেমেন্ট পদ্ধতি: ${paymentMethod === 'cod' ? 'ক্যাশ অন ডেলিভারি (COD)' : `বিকাশ/নগদ (Send Money TrxID: ${transactionId || 'অর্ডারের পর জানাব'})`}\n\n`;
+    
+    msg += `*অর্ডারকৃত টি-শার্টের তালিকা:*\n`;
+    groupedProducts.forEach((group, idx) => {
+      const sizeList = group.variants.map((v) => `${v.size}: ${v.quantity} পিস`).join(', ');
+      msg += `${idx + 1}. ${group.product.nameBn} [${sizeList}] (${group.color.nameBn}) — ৳${group.subtotal}\n`;
+    });
+
+    msg += `\nমোট পিস: ${totalPieces}টি\n`;
+    msg += `পণ্যের মোট মূল্য: ৳${subtotal}\n`;
+    msg += `ডেলিভারি চার্জ: ৳${deliveryFee}\n`;
+    msg += `*সর্বমোট প্রদেয়: ৳${grandTotal}*\n\n`;
+    if (notes.trim()) {
+      msg += `বিশেষ নোট: ${notes.trim()}\n\n`;
+    }
+    msg += `অনুগ্রহ করে আমার অর্ডারটি কনফার্ম করুন। ধন্যবাদ!`;
+    return msg;
+  }, [fullName, phone, address, city, deliveryArea, paymentMethod, transactionId, notes, groupedProducts, totalPieces, subtotal, deliveryFee, grandTotal]);
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
@@ -122,10 +266,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       />
 
       <div className="flex min-h-full items-center justify-center p-3 sm:p-6 py-8">
-        <div className="relative w-full max-w-3xl bg-[#FFFFFF] shadow-2xl border border-[#D5CDBD] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="relative w-full max-w-4xl bg-[#FFFFFF] shadow-2xl border border-[#D5CDBD] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
           
           {/* Header */}
-          <div className="p-5 sm:p-6 bg-[#111111] text-[#FFFFFF] flex items-center justify-between">
+          <div className="p-5 sm:p-6 bg-[#111111] text-[#FFFFFF] flex items-center justify-between border-b border-[#222222]">
             <div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#C6A36A]"></span>
@@ -340,7 +484,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                           <span>ম্যানুয়াল বিকাশ / নগদ পেমেন্ট নির্দেশিকা (Send Money):</span>
                         </p>
                         <p className="text-[11px] leading-relaxed text-[#7A122E]">
-                          আমাদের অফিশিয়াল পার্সোনাল নম্বর <strong>01605529912</strong>-এ মোট <strong>৳{grandTotal}</strong> টাকা Send Money করুন। এটি কোনো স্বয়ংক্রিয় পেমেন্ট গেটওয়ে নয়; টাকা পাঠানোর পর ট্রানজেকশন আইডি প্রদান করুন অথবা অর্ডার প্লেস করার পর আমাদের প্রতিনিধি আপনাকে কল করে নিশ্চিত করে নেবেন। কোনো পেমেন্ট স্বয়ংক্রিয়ভাবে ভেরিফাইড হবে না।
+                          আমাদের অফিশিয়াল পার্সোনাল নম্বর <strong>01605529912</strong>-এ মোট <strong>৳{grandTotal}</strong> টাকা Send Money করুন। এটি কোনো স্বয়ংক্রিয় পেমেন্ট গেটওয়ে নয়; টাকা পাঠানোর পর ট্রানজেকশন আইডি প্রদান করুন অথবা অর্ডার প্লেস করার পর আমাদের প্রতিনিধি আপনাকে কল করে নিশ্চিত করে নেবেন।
                         </p>
                       </div>
 
@@ -390,51 +534,181 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
               </div>
 
-              {/* Right Column: Order Items Summary & Price Breakdown (5 cols) */}
+              {/* Right Column: Order Items Summary & Size-Wise Controls (5 cols) */}
               <div className="lg:col-span-5 bg-[#FAF8F5] p-5 border border-[#E0D9CB] space-y-5">
                 
-                <div className="border-b border-[#E5DFD1] pb-3">
-                  <span className="text-[10px] font-english uppercase tracking-widest text-[#C6A36A] font-bold block">
-                    ORDER SUMMARY
-                  </span>
-                  <h4 className="font-bengali text-base font-bold text-[#111111]">
-                    অর্ডার তালিকা ({items.length}টি পণ্য)
-                  </h4>
+                <div className="border-b border-[#E5DFD1] pb-3 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-english uppercase tracking-widest text-[#C6A36A] font-bold block">
+                      ORDER SUMMARY
+                    </span>
+                    <h4 className="font-bengali text-base font-bold text-[#111111]">
+                      অর্ডার তালিকা ({groupedProducts.length}টি ডিজাইন • {totalPieces}টি পিস)
+                    </h4>
+                  </div>
+                  {checkoutItems.length > 0 && (
+                    <span className="text-xs font-english font-bold bg-[#111111] text-[#FFFFFF] px-2 py-0.5">
+                      {totalPieces} PCS
+                    </span>
+                  )}
                 </div>
 
                 {/* Selected Products List */}
-                <div className="max-h-60 overflow-y-auto space-y-3 pr-1 divide-y divide-[#EBE5D8]">
-                  {items.map((item) => (
-                    <div key={item.id} className="pt-2 first:pt-0 flex gap-3 items-center">
-                      <img
-                        src={item.product.image}
-                        alt={item.product.nameBn}
-                        className="w-12 h-15 object-cover bg-[#EAE5DC] shrink-0 border border-[#DDD5C5]"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bengali text-xs font-bold text-[#111111] truncate">
-                          {item.product.nameBn}
-                        </p>
-                        <p className="text-[11px] text-[#666666] font-english">
-                          Size: {item.selectedSize} | Qty: {item.quantity}
-                        </p>
-                        <p className="text-[11px] font-bengali text-[#888888]">
-                          {item.selectedColor.nameBn}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span className="font-english font-bold text-xs text-[#111111]">
-                          ৳ {(item.product.price * item.quantity).toLocaleString('en-US')}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                {groupedProducts.length === 0 ? (
+                  <div className="py-8 text-center space-y-3">
+                    <ShoppingBag className="w-10 h-10 text-[#AAAAAA] mx-auto" />
+                    <p className="font-bengali text-sm font-semibold text-[#555555]">
+                      আপনার কোনো পণ্য নির্বাচিত নেই!
+                    </p>
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="px-4 py-2 bg-[#111111] text-[#FFFFFF] text-xs font-bengali font-semibold hover:bg-[#252525] transition-colors cursor-pointer"
+                    >
+                      পণ্য ব্রাউজ করুন
+                    </button>
+                  </div>
+                ) : (
+                  <div className="max-h-80 overflow-y-auto space-y-4 pr-1 divide-y divide-[#EBE5D8]">
+                    {groupedProducts.map((group) => {
+                      // Find available sizes that are NOT yet selected for this product
+                      const unselectedSizes = group.product.availableSizes.filter(
+                        (sz) => !group.variants.some((v) => v.size === sz)
+                      );
+
+                      return (
+                        <div key={`${group.productId}_${group.colorHex}`} className="pt-3 first:pt-0 space-y-2">
+                          {/* Product Header */}
+                          <div className="flex gap-3 items-start">
+                            <img
+                              src={group.product.image}
+                              alt={group.product.nameBn}
+                              className="w-14 h-18 object-cover bg-[#EAE5DC] shrink-0 border border-[#DDD5C5]"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-1">
+                                <h5 className="font-bengali text-xs font-bold text-[#111111] line-clamp-1">
+                                  {group.product.nameBn}
+                                </h5>
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveProduct(group.productId, group.colorHex)}
+                                  className="text-[#999999] hover:text-[#D32F2F] p-0.5 transition-colors cursor-pointer"
+                                  title="ডিজাইনটি সম্পূর্ণ বাদ দিন"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                              <p className="text-[11px] font-english text-[#777777] uppercase truncate">
+                                {group.product.nameEn}
+                              </p>
+                              <div className="flex items-center gap-1.5 text-[11px] font-bengali text-[#555555] mt-0.5">
+                                <span
+                                  className="w-2.5 h-2.5 rounded-full inline-block border border-[#BBB]"
+                                  style={{ backgroundColor: group.color.hex }}
+                                />
+                                <span>{group.color.nameBn}</span>
+                                <span className="text-[#888888]">•</span>
+                                <span className="font-english font-semibold text-[#111111]">
+                                  ৳ {group.product.price} / পিস
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Size-wise Quantities with Plus and Minus Controls */}
+                          <div className="space-y-1.5 pl-2 border-l-2 border-[#C6A36A]">
+                            <div className="text-[10px] font-bengali text-[#777777] font-semibold">
+                              সাইজ অনুযায়ী পরিমাণ (+ / -):
+                            </div>
+                            {group.variants.map((v) => (
+                              <div
+                                key={v.id}
+                                className="flex items-center justify-between bg-[#FFFFFF] px-2.5 py-1.5 border border-[#E2DBD0] text-xs"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className="font-english font-bold text-xs bg-[#111111] text-[#FFFFFF] w-6 h-5 flex items-center justify-center">
+                                    {v.size}
+                                  </span>
+                                  <span className="font-bengali text-[11px] text-[#666666]">
+                                    (৳{group.product.price} × {v.quantity})
+                                  </span>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                  <div className="flex items-center border border-[#DDD5C5] bg-[#FAF8F5]">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleUpdateSizeQty(group.productId, group.colorHex, v.size, -1)}
+                                      className="w-5 h-5 flex items-center justify-center text-xs font-bold text-[#444444] hover:bg-[#EAE4D6] cursor-pointer"
+                                      title="পরিমাণ কমান"
+                                    >
+                                      -
+                                    </button>
+                                    <span className="w-6 text-center font-english font-bold text-xs text-[#111111]">
+                                      {v.quantity}
+                                    </span>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleUpdateSizeQty(group.productId, group.colorHex, v.size, 1)}
+                                      className="w-5 h-5 flex items-center justify-center text-xs font-bold text-[#444444] hover:bg-[#EAE4D6] cursor-pointer"
+                                      title="পরিমাণ বাড়ান"
+                                    >
+                                      +
+                                    </button>
+                                  </div>
+                                  <span className="w-14 text-right font-english font-bold text-xs text-[#111111]">
+                                    ৳ {(group.product.price * v.quantity).toLocaleString('en-US')}
+                                  </span>
+                                </div>
+                              </div>
+                            ))}
+
+                            {/* Option to add other available sizes for this product */}
+                            {unselectedSizes.length > 0 && (
+                              <div className="flex items-center gap-1.5 pt-1">
+                                <span className="text-[10px] font-bengali text-[#777777]">
+                                  + অন্য সাইজ যোগ করুন:
+                                </span>
+                                {unselectedSizes.map((sz) => (
+                                  <button
+                                    key={sz}
+                                    type="button"
+                                    onClick={() => handleUpdateSizeQty(group.productId, group.colorHex, sz, 1)}
+                                    className="px-1.5 py-0.5 bg-[#FFFFFF] hover:bg-[#111111] hover:text-[#FFFFFF] text-[#444444] text-[10px] font-english font-semibold border border-[#DDD5C5] transition-colors cursor-pointer"
+                                    title={`সাইজ ${sz} যোগ করুন`}
+                                  >
+                                    + {sz}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Product Line Subtotal */}
+                          <div className="flex items-center justify-between text-xs font-bengali text-[#555555] pt-1">
+                            <span>এই ডিজাইনের সাবটোটাল ({group.totalQuantity} পিস):</span>
+                            <span className="font-english font-bold text-[#111111]">
+                              ৳ {group.subtotal.toLocaleString('en-US')}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
 
                 {/* Cost Breakdown */}
                 <div className="space-y-2 pt-3 border-t border-[#E5DFD1] text-xs font-bengali">
                   <div className="flex justify-between text-[#666666]">
-                    <span>পণ্যের মোট মূল্য:</span>
+                    <span>মোট পিস (Total Pieces):</span>
+                    <span className="font-english font-bold text-[#111111]">
+                      {totalPieces} টি
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between text-[#666666]">
+                    <span>পণ্যের মোট মূল্য (Subtotal):</span>
                     <span className="font-english font-medium text-[#111111]">
                       ৳ {subtotal.toLocaleString('en-US')}
                     </span>
@@ -459,8 +733,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <div className="pt-3 space-y-2.5">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 bg-[#111111] hover:bg-[#252525] text-[#FFFFFF] font-bengali text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg disabled:opacity-50"
+                    disabled={isSubmitting || checkoutItems.length === 0 || totalPieces === 0}
+                    className="w-full py-4 bg-[#111111] hover:bg-[#252525] text-[#FFFFFF] font-bengali text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <span>অর্ডার প্রসেস হচ্ছে...</span>
@@ -472,22 +746,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     )}
                   </button>
 
-                  {/* Direct WhatsApp Order Submission */}
+                  {/* Direct WhatsApp Order Submission with Dynamic URL */}
                   <a
-                    href={`https://wa.me/8801605529912?text=${encodeURIComponent(
-                      `*TEEZAN নতুন সরাসরি অর্ডার*\n\n` +
-                      `নাম: ${fullName.trim() || 'গ্রাহক'}\n` +
-                      `ফোন: ${phone.trim() || 'প্রযোজ্য নয়'}\n` +
-                      `ঠিকানা: ${address.trim() || 'প্রযোজ্য নয়'}, ${city}\n` +
-                      `ডেলিভারি এলাকা: ${deliveryArea === 'inside_dhaka' ? 'ঢাকার ভেতরে (৳৬০)' : 'ঢাকার বাইরে (৳১২০)'}\n` +
-                      `পেমেন্ট: ${paymentMethod === 'cod' ? 'ক্যাশ অন ডেলিভারি' : `বিকাশ/নগদ ম্যানুয়াল (TrxID: ${transactionId || 'উত্তরে জানাব'})`}\n\n` +
-                      `*অর্ডারকৃত পণ্যসমূহ:*\n` +
-                      items.map((it, i) => `${i + 1}. ${it.product.nameBn} [Size: ${it.selectedSize}, Color: ${it.selectedColor.nameBn}] x ${it.quantity} = ৳${it.product.price * it.quantity}`).join('\n') +
-                      `\n\nডেলিভারি চার্জ: ৳${deliveryFee}\n*সর্বমোট প্রদেয়: ৳${grandTotal}*\n\nঅনুগ্রহ করে অর্ডারটি নিশ্চিত করুন।`
-                    )}`}
+                    href={`https://wa.me/8801605529912?text=${encodeURIComponent(whatsappOrderMessage)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-3 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-xs"
+                    className={`w-full py-2.5 px-3 bg-[#25D366] hover:bg-[#20ba59] text-[#FFFFFF] font-bengali text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-xs ${
+                      checkoutItems.length === 0 || totalPieces === 0 ? 'pointer-events-none opacity-50' : ''
+                    }`}
                     title="হোয়াটসঅ্যাপে সরাসরি অর্ডার পাঠান"
                   >
                     <span>হোয়াটসঅ্যাপে দ্রুত অর্ডার পাঠান (01605529912)</span>

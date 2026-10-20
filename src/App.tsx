@@ -34,6 +34,8 @@ export default function App() {
 
   // --- Checkout & Order States ---
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [checkoutItems, setCheckoutItems] = useState<CartItem[]>([]);
+  const [checkoutSource, setCheckoutSource] = useState<'direct' | 'cart'>('direct');
   const [placedOrder, setPlacedOrder] = useState<Order | null>(null);
 
   // --- Modal States ---
@@ -89,46 +91,131 @@ export default function App() {
     showToast(`"${product.nameBn}" কার্টে যোগ করা হয়েছে!`);
   };
 
-  // Instant Buy / Direct Order Now handler
+  // Multi-size add to cart (from QuickViewModal)
+  const handleAddToCartMulti = (
+    product: Product,
+    color: ProductColor,
+    sizeQuantities: Record<SizeOption, number>
+  ) => {
+    const newItems: CartItem[] = [];
+    Object.entries(sizeQuantities).forEach(([sz, qty]) => {
+      if (qty > 0) {
+        newItems.push({
+          id: `${product.id}-${sz}-${color.hex}`,
+          product,
+          selectedSize: sz as SizeOption,
+          selectedColor: color,
+          quantity: qty,
+        });
+      }
+    });
+
+    if (newItems.length === 0) return;
+
+    setCartItems((prev) => {
+      const updated = [...prev];
+      newItems.forEach((newItem) => {
+        const existingIdx = updated.findIndex((item) => item.id === newItem.id);
+        if (existingIdx >= 0) {
+          updated[existingIdx] = {
+            ...updated[existingIdx],
+            quantity: updated[existingIdx].quantity + newItem.quantity,
+          };
+        } else {
+          updated.push(newItem);
+        }
+      });
+      return updated;
+    });
+
+    const totalCount = newItems.reduce((sum, it) => sum + it.quantity, 0);
+    showToast(`"${product.nameBn}" (${totalCount}টি পিস) কার্টে যোগ করা হয়েছে!`);
+  };
+
+  // Multi-size direct order (from QuickViewModal)
+  const handleDirectMultiSizeOrder = (
+    product: Product,
+    color: ProductColor,
+    sizeQuantities: Record<SizeOption, number>
+  ) => {
+    const directItems: CartItem[] = [];
+    Object.entries(sizeQuantities).forEach(([sz, qty]) => {
+      if (qty > 0) {
+        directItems.push({
+          id: `${product.id}-${sz}-${color.hex}`,
+          product,
+          selectedSize: sz as SizeOption,
+          selectedColor: color,
+          quantity: qty,
+        });
+      }
+    });
+
+    if (directItems.length === 0) return;
+
+    // DIRECT ORDER: Checkout contains ONLY this selected product's variants!
+    setCheckoutItems(directItems);
+    setCheckoutSource('direct');
+    setQuickViewProduct(null);
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
+  };
+
+  // Instant Buy / Direct Order Now handler for single product from ProductCard
   const handleDirectOrderNow = (
     product: Product,
     size: SizeOption,
     color: ProductColor,
     quantity = 1
   ) => {
-    const itemKey = `${product.id}-${size}-${color.hex}`;
+    const singleItem: CartItem = {
+      id: `${product.id}-${size}-${color.hex}`,
+      product,
+      selectedSize: size,
+      selectedColor: color,
+      quantity,
+    };
 
-    setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === itemKey);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === itemKey
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      } else {
-        return [
-          ...prev,
-          {
-            id: itemKey,
-            product,
-            selectedSize: size,
-            selectedColor: color,
-            quantity,
-          },
-        ];
-      }
-    });
-
+    // DIRECT ORDER: Checkout contains ONLY this single selected product!
+    setCheckoutItems([singleItem]);
+    setCheckoutSource('direct');
     setQuickViewProduct(null);
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
   };
 
+  // Open checkout from Cart
+  const handleOpenCheckoutFromCart = () => {
+    if (cartItems.length === 0) {
+      showToast('আপনার কার্ট খালি রয়েছে! অনুগ্রহ করে পণ্য যোগ করুন।');
+      return;
+    }
+    setCheckoutItems([...cartItems]);
+    setCheckoutSource('cart');
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
+  };
+
+  // Sync edits made inside CheckoutModal back to cartItems if opened from cart
+  const handleCheckoutItemsChange = (updatedItems: CartItem[]) => {
+    setCheckoutItems(updatedItems);
+    if (checkoutSource === 'cart') {
+      setCartItems(updatedItems);
+    }
+  };
+
   // Handle successful order completion
   const handleOrderSuccess = (order: Order) => {
     setPlacedOrder(order);
-    setCartItems([]);
+    if (checkoutSource === 'cart') {
+      setCartItems([]);
+    } else {
+      // Remove only the purchased items from cart if present
+      setCartItems((prev) =>
+        prev.filter((cItem) => !order.items.some((oItem) => oItem.id === cItem.id))
+      );
+    }
+    setCheckoutItems([]);
     setIsCheckoutOpen(false);
     showToast(`ধন্যবাদ! আপনার অর্ডার #${order.id} সফল হয়েছে!`);
   };
@@ -271,16 +358,15 @@ export default function App() {
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
         onClearCart={handleClearCart}
-        onOpenCheckout={() => {
-          setIsCartOpen(false);
-          setIsCheckoutOpen(true);
-        }}
+        onOpenCheckout={handleOpenCheckoutFromCart}
       />
 
-      {/* Quick View Modal */}
+      {/* Quick View Modal with Size-wise Quantity Support */}
       <QuickViewModal
         product={quickViewProduct}
         onClose={() => setQuickViewProduct(null)}
+        onAddToCartMulti={handleAddToCartMulti}
+        onInstantOrderMulti={handleDirectMultiSizeOrder}
         onAddToCart={handleAddToCart}
         onInstantOrder={handleDirectOrderNow}
         onOpenSizeGuide={() => {
@@ -292,8 +378,9 @@ export default function App() {
       <CheckoutModal
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
-        items={cartItems}
+        items={checkoutItems}
         onOrderSuccess={handleOrderSuccess}
+        onItemsChange={handleCheckoutItemsChange}
       />
 
       {/* Order Success Invoice Modal */}

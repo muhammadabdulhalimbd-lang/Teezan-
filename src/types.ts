@@ -1,4 +1,4 @@
-export type SizeOption = 'M' | 'L' | 'XL' | 'XXL';
+export type SizeOption = 'S' | 'M' | 'L' | 'XL' | 'XXL';
 
 export interface ProductColor {
   nameBn: string;
